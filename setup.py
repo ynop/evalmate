@@ -4,9 +4,9 @@ from setuptools import setup
 PYTEST_VERSION_ = '3.3.0'
 
 setup(name='evalmate',
-      version='1.0.0',
-      description='Evalmate is a set of tools for evaluate audio related machine learning tasks.',
-      long_description='Evalmate is a set of tools for evaluate audio related machine learning tasks.',
+      version='0.0.0',
+      description='Evalmate is a set of tools for evaluating audio related machine learning tasks.',
+      long_description='Evalmate is a set of tools for evaluating audio related machine learning tasks.',
       url='https://github.com/ynop/evalmate',
       download_url='https://github.com/ynop/evalmate/releases',
       author='Matthias Buechi, Andreas Ahlenstorf',
@@ -20,7 +20,7 @@ setup(name='evalmate',
       license='MIT',
       packages=find_packages(exclude=['tests']),
       install_requires=[
-          'audioread >= 1.0.0',
+          'audiomate >= 1.0.0',
           'numpy >= 1.14.0',
           'scipy >= 1.1.0',
       ],

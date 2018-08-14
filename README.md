@@ -5,7 +5,7 @@
 [![Coverage Badge](https://api.shippable.com/projects/5b6c0016c767f20700d1d2e0/coverageBadge?branch=master)](https://app.shippable.com/github/ynop/evalmate)
 [![Documentation Status](https://readthedocs.org/projects/evalmate/badge/?version=latest)](https://evalmate.readthedocs.io/en/latest/?badge=latest)
 
-Evalmate is a set of tools for evaluate audio related machine learning tasks.
+Evalmate is a set of tools for evaluating audio related machine learning tasks.
 
 ## Installation
 
