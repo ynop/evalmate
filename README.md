@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/evalmate.svg)](https://pypi.python.org/pypi/evalmate)
 [![Run Status](https://api.shippable.com/projects/5b6c0016c767f20700d1d2e0/badge?branch=master)](https://app.shippable.com/github/ynop/evalmate)
 [![Coverage Badge](https://api.shippable.com/projects/5b6c0016c767f20700d1d2e0/coverageBadge?branch=master)](https://app.shippable.com/github/ynop/evalmate)
-[![Documentation Status](https://readthedocs.org/projects/evalmate/badge/?version=v1.0.0)](https://evalmate.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/evalmate/badge/?version=latest)](https://evalmate.readthedocs.io/en/latest/?badge=latest)
 
 Evalmate is a set of tools for evaluate audio related machine learning tasks.
 
