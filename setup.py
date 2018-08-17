@@ -23,6 +23,8 @@ setup(name='evalmate',
           'audiomate >= 1.0.0',
           'numpy >= 1.14.0',
           'scipy >= 1.1.0',
+          'networkx >= 2.0',
+          'Jinja2 >= 2.1'
       ],
       include_package_data=True,
       zip_safe=False,
