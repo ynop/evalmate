@@ -4,7 +4,7 @@ from setuptools import setup
 PYTEST_VERSION_ = '3.3.0'
 
 setup(name='evalmate',
-      version='0.0.0',
+      version='0.1.0',
       description='Evalmate is a set of tools for evaluating audio related machine learning tasks.',
       long_description='Evalmate is a set of tools for evaluating audio related machine learning tasks.',
       url='https://github.com/ynop/evalmate',
