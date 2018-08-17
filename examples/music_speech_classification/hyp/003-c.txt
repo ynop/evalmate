@@ -1,0 +1,4 @@
+0	22.2	speech
+22.2	28.7	music
+28.7	32.4	mix
+37.5	52.1	speech

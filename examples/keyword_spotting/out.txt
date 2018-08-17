@@ -1,0 +1,30 @@
+Overall
+---------------------
+
+Precision:             62.96
+Recall:                70.83
+
+N (total):             24.00
+C (correct):           17.00
+S (substitutions):      4.00
+D (deletions):          3.00
+I (insertions):         6.00
+
+Classes
+---------------------
+
+
+one              Precision: 100.00  Recall: 71.43
+                 N:   7.00, C:   5.00, S:   1.00, D:   1.00, I:   0.00
+
+two              Precision: 42.86  Recall: 75.00
+                 N:   4.00, C:   3.00, S:   1.00, D:   0.00, I:   2.00
+
+three            Precision: 66.67  Recall: 66.67
+                 N:   6.00, C:   4.00, S:   1.00, D:   1.00, I:   1.00
+
+five             Precision: 66.67  Recall: 66.67
+                 N:   3.00, C:   2.00, S:   0.00, D:   1.00, I:   1.00
+
+four             Precision: 50.00  Recall: 75.00
+                 N:   4.00, C:   3.00, S:   1.00, D:   0.00, I:   2.00

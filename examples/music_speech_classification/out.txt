@@ -1,0 +1,24 @@
+Overall
+---------------------
+
+Precision:             76.63
+Recall:                73.64
+
+N (total):            169.60
+C (correct):          124.90
+S (substitutions):     36.40
+D (deletions):          8.30
+I (insertions):         1.70
+
+Classes
+---------------------
+
+
+music            Precision: 69.86  Recall: 74.03
+                 N:  62.00, C:  45.90, S:  12.90, D:   3.20, I:   0.00
+
+speech           Precision: 87.97  Recall: 76.15
+                 N:  89.30, C:  68.00, S:  16.20, D:   5.10, I:   1.70
+
+mix              Precision: 55.00  Recall: 60.11
+                 N:  18.30, C:  11.00, S:   7.30, D:   0.00, I:   0.00
