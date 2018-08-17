@@ -1,0 +1,1 @@
+recursive-include evalmate/tasks/report_templates *.txt
