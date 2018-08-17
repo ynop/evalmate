@@ -1,0 +1,19 @@
+Overall
+---------------------
+
+Precision:          {{"%8.2f"|format(data.precision * 100)}}
+Recall:             {{"%8.2f"|format(data.recall * 100)}}
+
+N (total):          {{"%8.2f"|format(data.total)}}
+C (correct):        {{"%8.2f"|format(data.correct)}}
+S (substitutions):  {{"%8.2f"|format(data.substitutions)}}
+D (deletions):      {{"%8.2f"|format(data.deletions)}}
+I (insertions):     {{"%8.2f"|format(data.insertions)}}
+
+Classes
+---------------------
+
+{% for i in data.instances.values() %}
+{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}}  Recall: {{"%2.2f"|format(i.recall * 100)}}
+{{"%-15s"|format("")}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
+{% endfor %}
