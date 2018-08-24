@@ -1,0 +1,48 @@
+Overall
+########################################################################################
+
+Precision:          {{"%8.2f"|format(confusion.precision * 100)}}
+Recall:             {{"%8.2f"|format(confusion.recall * 100)}}
+
+N (total):          {{"%8.2f"|format(confusion.total)}}
+C (correct):        {{"%8.2f"|format(confusion.correct)}}
+S (substitutions):  {{"%8.2f"|format(confusion.substitutions)}}
+D (deletions):      {{"%8.2f"|format(confusion.deletions)}}
+I (insertions):     {{"%8.2f"|format(confusion.insertions)}}
+
+Ground-Truth
+----------------------------
+{% set rs = ref_outcome.label_set() -%}
+
+Count:              {{"%8i"|format(rs.count)}}
+Length - Min:       {{"%8.2f"|format(rs.length_min)}}
+Length - Max:       {{"%8.2f"|format(rs.length_max)}}
+Length - Mean:      {{"%8.2f"|format(rs.length_mean)}}
+Length - Median:    {{"%8.2f"|format(rs.length_median)}}
+Length - Variance:  {{"%8.2f"|format(rs.length_variance)}}
+
+
+System Output
+----------------------------
+{% set hs = hyp_outcome.label_set() -%}
+
+Count:              {{"%8i"|format(hs.count)}}
+Length - Min:       {{"%8.2f"|format(hs.length_min)}}
+Length - Max:       {{"%8.2f"|format(hs.length_max)}}
+Length - Mean:      {{"%8.2f"|format(hs.length_mean)}}
+Length - Median:    {{"%8.2f"|format(hs.length_median)}}
+Length - Variance:  {{"%8.2f"|format(hs.length_variance)}}
+
+Classes
+########################################################################################
+
+{% for i in confusion.instances.values() %}
+{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}},  Recall: {{"%2.2f"|format(i.recall * 100)}}
+{{"%-15s"|format("")}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
+
+{% set rs = ref_outcome.label_set_for_value(i.value) -%}
+{{"%15s"|format("REF")}}  L-Min:{{"%8.2f"|format(rs.length_min)}}, L-Max:{{"%8.2f"|format(rs.length_max)}}, L-Mean:{{"%8.2f"|format(rs.length_mean)}}, L-Median:{{"%8.2f"|format(rs.length_median)}}, L-Var:{{"%8.2f"|format(rs.length_variance)}}
+{% set rs = hyp_outcome.label_set_for_value(i.value) -%}
+{{"%15s"|format("HYP")}}  L-Min:{{"%8.2f"|format(rs.length_min)}}, L-Max:{{"%8.2f"|format(rs.length_max)}}, L-Mean:{{"%8.2f"|format(rs.length_mean)}}, L-Median:{{"%8.2f"|format(rs.length_median)}}, L-Var:{{"%8.2f"|format(rs.length_variance)}}
+
+{% endfor %}

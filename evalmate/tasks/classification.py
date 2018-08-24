@@ -1,6 +1,3 @@
-import audiomate
-from audiomate.corpus import assets
-
 from evalmate import confusion
 from evalmate.alignment import segments
 
@@ -15,16 +12,26 @@ class ClassificationEvaluation(base.Evaluation):
         aligned_segments (list): List of :py:class:`evalmate.utils.structure.Segment`.
 
     Attributes
+        ref_outcome (Outcome): The outcome of the ground-truth/reference.
+        hyp_outcome (Outcome): The outcome of the system-output/hypothesis.
         confusion (AggregatedConfusion): Confusion result
     """
 
-    def __init__(self, aligned_segments):
+    def __init__(self, ref_outcome, hyp_outcome, aligned_segments):
+        super(ClassificationEvaluation, self).__init__(ref_outcome, hyp_outcome)
+
         self.aligned_segments = aligned_segments
         self.confusion = confusion.create_from_segments(self.aligned_segments)
 
     @property
-    def data(self):
-        return self.confusion
+    def default_template(self):
+        return 'classification'
+
+    @property
+    def template_data(self):
+        return {'confusion': self.confusion,
+                'ref_outcome': self.ref_outcome,
+                'hyp_outcome': self.hyp_outcome}
 
 
 class ClassificationEvaluator(base.Evaluator):
@@ -39,75 +46,22 @@ class ClassificationEvaluator(base.Evaluator):
     def __init__(self):
         self.aligner = segments.SegmentAligner()
 
-    def evaluate(self, ref, hyp):
-        """
-        Create the evaluation result of the given hypothesis compared to the given reference (ground truth).
-        There are different possibilities of input:
+    @classmethod
+    def default_label_list_idx(cls):
+        return 'domain'
 
-        * ref = Corpus / hyp = dict: The dict contains label-lists which are compared against the corpus.
-          See ``evaluate_label_lists_against_corpus``
-        * ref = LabelList / hyp = LabelList: Ref label-list is compared against the other.
-          See ``evaluate_label_lists``
-
-        Arguments:
-            ref (LabelList, Corpus): A label-list, a corpus.
-            hyp (LabelList, dict): A label-list, a dict.
-
-        Returns:
-            ClassificationEvaluation: The evaluation results.
-        """
-
-        if isinstance(ref, assets.LabelList) and isinstance(hyp, assets.LabelList):
-            return self.evaluate_label_lists(ref, hyp)
-
-        if isinstance(ref, audiomate.Corpus) and isinstance(hyp, dict):
-            return self.evaluate_label_lists_against_corpus(ref, hyp)
-
-        raise ValueError('Invalid arguments!')
-
-    def evaluate_label_lists(self, ll_ref, ll_hyp):
-        """
-        Create Evaluation for ref and hyp label-list.
-
-        Arguments:
-            ref (LabelList): A label-list.
-            hyp (LabelList): A label-list.
-
-        Returns:
-            ClassificationEvaluation: The evaluation results.
-        """
-
-        aligned_segments = self.aligner.align(ll_ref, ll_hyp)
-        aligned_segments = ClassificationEvaluator.flatten_overlapping_labels(aligned_segments)
-        return ClassificationEvaluation(aligned_segments)
-
-    def evaluate_label_lists_against_corpus(self, corpus, label_lists, label_list_idx='domain'):
-        """
-        Create Evaluation for the given corpus.
-
-        Arguments:
-            corpus (Corpus): A corpus containing the reference label-lists.
-            label_lists (Dict): A dictionary containing label-lists with the utterance-idx as key.
-                                The utterance-idx is used to find the corresponding reference label-list in the corpus.
-            label_list_idx (str): The idx of the label-lists to use as reference from the corpus.
-                                  By default `word-transcript` is used which mostly likely is used for kws.
-
-        Returns:
-            ClassificationEvaluation: The evaluation results.
-        """
-
+    def do_evaluate(self, ref, hyp):
         all = []
 
-        for utterance in corpus.utterances.values():
-            ll_ref = utterance.label_lists[label_list_idx]
-            ll_hyp = label_lists[utterance.idx]
+        for key, ll_ref in ref.label_lists.items():
+            ll_hyp = hyp.label_lists[key]
 
             aligned_segments = self.aligner.align(ll_ref, ll_hyp)
             aligned_segments = ClassificationEvaluator.flatten_overlapping_labels(aligned_segments)
 
             all.extend(aligned_segments)
 
-        return ClassificationEvaluation(all)
+        return ClassificationEvaluation(ref, hyp, all)
 
     @staticmethod
     def flatten_overlapping_labels(aligned_segments):

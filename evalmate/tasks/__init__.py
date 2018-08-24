@@ -15,6 +15,15 @@ Base
 .. autoclass:: Evaluator
    :members:
 
+Outcome
+-------
+
+.. autoclass:: Outcome
+   :members:
+
+.. autoclass:: LabelSet
+   :members:
+
 Classification
 --------------
 
@@ -35,6 +44,9 @@ KWS
 
 
 """
+
+from .outcome import Outcome  # noqa: F401
+from .outcome import LabelSet  # noqa: F401
 
 from .base import Evaluation  # noqa: F401
 from .base import Evaluator  # noqa: F401
