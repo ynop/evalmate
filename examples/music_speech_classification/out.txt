@@ -1,5 +1,5 @@
 Overall
----------------------
+########################################################################################
 
 Precision:             76.63
 Recall:                73.64
@@ -10,15 +10,46 @@ S (substitutions):     36.40
 D (deletions):          8.30
 I (insertions):         1.70
 
+Ground-Truth
+----------------------------
+Count:                     7
+Length - Min:          10.20
+Length - Max:          52.10
+Length - Mean:         24.23
+Length - Median:       18.30
+Length - Variance:    207.69
+
+
+System Output
+----------------------------
+Count:                    17
+Length - Min:           1.90
+Length - Max:          22.20
+Length - Mean:          9.59
+Length - Median:        7.30
+Length - Variance:     36.16
+
 Classes
----------------------
+########################################################################################
 
 
-music            Precision: 69.86  Recall: 74.03
+music            Precision: 69.86,  Recall: 74.03
                  N:  62.00, C:  45.90, S:  12.90, D:   3.20, I:   0.00
 
-speech           Precision: 87.97  Recall: 76.15
+            REF  L-Min:   10.20, L-Max:   39.60, L-Mean:   20.67, L-Median:   12.20, L-Var:  179.90
+            HYP  L-Min:    2.40, L-Max:   16.20, L-Mean:    8.21, L-Median:    6.90, L-Var:   21.35
+
+
+speech           Precision: 87.97,  Recall: 76.15
                  N:  89.30, C:  68.00, S:  16.20, D:   5.10, I:   1.70
 
-mix              Precision: 55.00  Recall: 60.11
+            REF  L-Min:   18.00, L-Max:   52.10, L-Mean:   29.77, L-Median:   19.20, L-Var:  249.63
+            HYP  L-Min:    1.90, L-Max:   22.20, L-Mean:   12.88, L-Median:   13.90, L-Var:   51.42
+
+
+mix              Precision: 55.00,  Recall: 60.11
                  N:  18.30, C:  11.00, S:   7.30, D:   0.00, I:   0.00
+
+            REF  L-Min:   18.30, L-Max:   18.30, L-Mean:   18.30, L-Median:   18.30, L-Var:    0.00
+            HYP  L-Min:    3.70, L-Max:   11.00, L-Mean:    6.67, L-Median:    5.30, L-Var:    9.82
+
