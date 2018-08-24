@@ -1,3 +1,5 @@
+from evalmate.tasks.outcome import Outcome  # noqa: F401
+
 from evalmate.tasks.classification import ClassificationEvaluator  # noqa: F401
 from evalmate.tasks.classification import ClassificationEvaluation  # noqa: F401
 
