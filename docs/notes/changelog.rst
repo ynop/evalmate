@@ -4,6 +4,9 @@ Changelog
 Next Version
 ------------
 
+v0.2.0
+------
+
 **New Features**
 
 * Introduced :class:`evalmate.tasks.Outcome` to have a common input structure for reference and hypothesis.
