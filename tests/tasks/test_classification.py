@@ -41,3 +41,21 @@ class TestClassificationEvaluator:
         assert result.confusion.substitutions == pytest.approx(36.4)
         assert result.confusion.substitutions_out == pytest.approx(36.4)
         assert result.confusion.total == pytest.approx(169.6)
+
+    def test_evaluate_with_invalid_labels_raises_error(self):
+        ll_ref = assets.LabelList(labels=[
+            assets.Label('a', 0.89, 13.73),
+            assets.Label('a', 13.73, 17.49),
+            assets.Label('b', 17.49, 22.75)
+        ])
+
+        ll_hyp = assets.LabelList(labels=[
+            assets.Label('b', 0.89, 13.73),
+            assets.Label('b', 13.73, 17.49),
+            assets.Label('a', 17.49, 17.30)
+        ])
+
+        with pytest.raises(ValueError) as excinfo:
+            tasks.ClassificationEvaluator().evaluate(ll_ref, ll_hyp)
+
+        assert 'Label-end {} is smaller than label-start {}!'.format(17.30, 17.49) in str(excinfo.value)
