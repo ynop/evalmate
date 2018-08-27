@@ -127,7 +127,7 @@ class SegmentAligner(object):
                                     earlier event is used for both events.
 
         Returns:
-              list: List of tuples. Every tuple contains a time, type (start or end), ll_index (ref/hyp) and
+              list: List of list of tuples. Every tuple contains a time, type (start or end), ll_index (ref/hyp) and
                     the label which is responsible for the event. It is sorted ascending by time.
         """
         events = []
@@ -166,6 +166,9 @@ class SegmentAligner(object):
         """
 
         for label in sorted(label_list, key=lambda x: x.start):
+            if label.end <= label.start:
+                raise ValueError('Label-end {} is smaller than label-start {}!'.format(label.end, label.start))
+
             if label.value is not PLACEHOLDER:
                 if label.end == -1:
                     label.end = label.label_list.utterance.end

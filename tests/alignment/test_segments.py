@@ -182,3 +182,34 @@ class TestSegmentAligner:
         assert segment.end == 8
         assert segment.ref == []
         assert segment.hyp == [assets.Label('c', 5, 8)]
+
+    def test_create_event_list(self):
+        ll_ref = assets.LabelList(labels=[
+            assets.Label('a', 0.89, 13.73),
+            assets.Label('a', 13.73, 17.49),
+            assets.Label('b', 17.49, 22.75)
+        ])
+
+        ll_hyp = assets.LabelList(labels=[
+            assets.Label('b', 0.1, 1.656),
+            assets.Label('a', 1.656, 1.976),
+            assets.Label('b', 1.976, 3.896),
+            assets.Label('a', 3.896, 3.957)
+        ])
+
+        events = segments.SegmentAligner.create_event_list(ll_ref, ll_hyp, time_threshold=0.01)
+
+        assert events[0] == (0.1, [(0.1, 'S', 1, assets.Label('b', 0.1, 1.656))])
+        assert events[1] == (0.89, [(0.89, 'S', 0, assets.Label('a', 0.89, 13.73))])
+        assert events[2] == (1.656, [(1.656, 'E', 1, assets.Label('b', 0.1, 1.656)),
+                                     (1.656, 'S', 1, assets.Label('a', 1.656, 1.976))])
+        assert events[3] == (1.976, [(1.976, 'E', 1, assets.Label('a', 1.656, 1.976)),
+                                     (1.976, 'S', 1, assets.Label('b', 1.976, 3.896))])
+        assert events[4] == (3.896, [(3.896, 'E', 1, assets.Label('b', 1.976, 3.896)),
+                                     (3.896, 'S', 1, assets.Label('a', 3.896, 3.957))])
+        assert events[5] == (3.957, [(3.957, 'E', 1, assets.Label('a', 3.896, 3.957))])
+        assert events[6] == (13.73, [(13.73, 'E', 0, assets.Label('a', 0.89, 13.73)),
+                                     (13.73, 'S', 0, assets.Label('a', 13.73, 17.49))])
+        assert events[7] == (17.49, [(17.49, 'E', 0, assets.Label('a', 13.73, 17.49)),
+                                     (17.49, 'S', 0, assets.Label('b', 17.49, 22.75))])
+        assert events[8] == (22.75, [(22.75, 'E', 0, assets.Label('b', 17.49, 22.75))])
