@@ -6,12 +6,17 @@ class Outcome:
     An outcome represents the annotation/labels/transcriptions of a dataset/corpus for a given task.
     This can be either the ground truth/reference or the system output/hypothesis.
 
+    If no durations are provided or duration for some utterances are missing,
+    some methods may not work or throw exceptions.
+
     Attributes:
-        label_lists (dict): Dictionary containing all label-lists with the utterance/sample id as key.
+        label_lists (dict): Dictionary containing all label-lists with the utterance-idx/sample-idx as key.
+        utterance_durations (dict): Dictionary (utterance-idx/duration) containing the durations of all utterances.
     """
 
-    def __init__(self, label_lists=None):
+    def __init__(self, label_lists=None, utterance_durations=None):
         self.label_lists = label_lists or {}
+        self.utterance_durations = utterance_durations or {}
 
     def label_set(self):
         """ Return a label-set containing all labels. """
@@ -40,6 +45,19 @@ class Outcome:
                     ls.labels.append(label)
 
         return ls
+
+    @property
+    def total_duration(self):
+        """
+        Return the duration of all utterances together.
+
+        Notes:
+            Only works if for all utterances, the durations are provided.
+        """
+        if len(set(self.label_lists.keys()).difference(self.utterance_durations.keys())) > 0:
+            raise ValueError('Missing durations for some utterances!')
+
+        return sum(self.utterance_durations.values())
 
 
 class LabelSet:
