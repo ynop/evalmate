@@ -1,3 +1,5 @@
+import numpy as np
+
 from evalmate.alignment import one_to_one
 from evalmate import confusion
 
@@ -14,13 +16,13 @@ class KWSEvaluation(base.Evaluation):
     Attributes
         ref_outcome (Outcome): The outcome of the ground-truth/reference.
         hyp_outcome (Outcome): The outcome of the system-output/hypothesis.
-        confusion_stats (ConfusionStats): Confusion statistics
+        confusion (ConfusionStats): Confusion statistics
     """
 
     def __init__(self, ref_outcome, hyp_outcome, aligned_labels):
         super(KWSEvaluation, self).__init__(ref_outcome, hyp_outcome)
         self.aligned_labels = aligned_labels
-        self.confusion_stats = confusion.create_from_label_pairs(self.aligned_labels)
+        self.confusion = confusion.create_from_label_pairs(self.aligned_labels)
 
     @property
     def default_template(self):
@@ -28,7 +30,60 @@ class KWSEvaluation(base.Evaluation):
 
     @property
     def template_data(self):
-        return {'confusion': self.confusion_stats}
+        return {'confusion': self.confusion}
+
+    def keywords(self):
+        """
+        Return a list of all keywords occurring in the reference outcome.
+        """
+        return self.ref_outcome.all_values
+
+    def false_rejection_rate(self, keyword=None):
+        """
+        The False Rejection Rate (FRR) is the percentage of misses of all occurrences in the ground truth.
+        If no keyword is given the mean FRR is calculated over all keywords.
+
+        Args:
+            keyword (str): If not None, only the FFR for this keyword is returned.
+
+        Returns:
+            float: A rate between 0 and 1
+        """
+
+        if keyword is not None:
+            conf = self.confusion.instances[keyword]
+            return conf.false_negatives / conf.total
+        else:
+            per_kw = [self.false_rejection_rate(kw) for kw in self.confusion.instances.keys()]
+            return np.mean(per_kw)
+
+    def false_alarm_rate(self, keyword=None):
+        """
+        The False Alarm Rate (FAR) is the percentage of detections, where no keyword is according to the ground truth.
+        If no keyword is given the mean FAR is calculated over all keywords.
+        This rate is relative to the duration of all utterances.
+
+        To calculate this, we need to know the number of times a keyword could be wrongly inserted.
+        We assume that every keyword takes one second to approximate this value.
+
+        Args:
+            keyword (str): If not None, only the FFR for this keyword is returned.
+
+        Returns:
+            float: A rate between 0 and 1
+        """
+        conf = self.confusion
+
+        if keyword is not None:
+            conf = self.confusion.instances[keyword]
+
+            false_positive_opportunities = self.ref_outcome.total_duration - conf.total
+            false_positives = conf.false_positives
+
+            return false_positives / false_positive_opportunities
+        else:
+            per_kw = [self.false_alarm_rate(kw) for kw in self.confusion.instances.keys()]
+            return np.mean(per_kw)
 
 
 class KWSEvaluator(base.Evaluator):
