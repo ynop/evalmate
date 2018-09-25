@@ -85,6 +85,33 @@ class KWSEvaluation(base.Evaluation):
             per_kw = [self.false_alarm_rate(kw) for kw in self.confusion.instances.keys()]
             return np.mean(per_kw)
 
+    def term_weighted_value(self, keyword=None):
+        """
+        Computes the Term-Weighted Value (TWV).
+
+        Note:
+            The TWV is implemented according to
+            `OpenKWS 2016 Evaluation Plan
+            <https://www.nist.gov/sites/default/files/documents/itl/iad/mig/KWS16-evalplan-v04.pdf>`_
+
+        Args:
+            keyword (str): If None, computes the TWV over all keywords, otherwise only for the given keyword.
+
+        Returns:
+            float: The TWV in the range 1 to -inf
+        """
+
+        p_miss = self.false_rejection_rate(keyword=keyword)
+        p_false_alarm = self.false_alarm_rate(keyword=keyword)
+
+        false_alarm_cost = 0.1
+        correct_cost = 1.0
+        kw_prior = 0.0001
+
+        beta = false_alarm_cost / correct_cost * (kw_prior ** -1 - 1)
+
+        return 1 - (p_miss + beta * p_false_alarm)
+
 
 class KWSEvaluator(base.Evaluator):
     """

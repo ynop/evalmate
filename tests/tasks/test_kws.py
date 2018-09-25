@@ -67,3 +67,25 @@ class TestKWSEvaluation:
         result = tasks.KWSEvaluator().evaluate(kws_ref_corpus_and_hyp_labels[0], kws_ref_corpus_and_hyp_labels[1])
 
         assert result.false_alarm_rate(keyword='four') == pytest.approx(3 / (150.4 - 4))
+
+    def test_term_weighted_value(self, kws_ref_corpus_and_hyp_labels):
+        result = tasks.KWSEvaluator().evaluate(kws_ref_corpus_and_hyp_labels[0], kws_ref_corpus_and_hyp_labels[1])
+
+        p_miss = np.array([2 / 7, 1 / 4, 2 / 6, 1 / 3, 1 / 4]).mean()
+        p_fa = np.array([0 / 143.4, 4 / 146.4, 2 / 144.4, 1 / 147.4, 3 / 146.4]).mean()
+
+        beta = (0.1 / 1.0) * (((10 ** -4) ** -1) - 1)
+        twv = 1 - (p_miss + beta * p_fa)
+
+        assert result.term_weighted_value() == pytest.approx(twv)
+
+    def test_term_weighted_value_for_single_keyword(self, kws_ref_corpus_and_hyp_labels):
+        result = tasks.KWSEvaluator().evaluate(kws_ref_corpus_and_hyp_labels[0], kws_ref_corpus_and_hyp_labels[1])
+
+        p_miss = 1.0 / 4.0
+        p_fa = 3 / (150.4 - 4)
+
+        beta = (0.1 / 1.0) * (((10 ** -4) ** -1) - 1)
+        twv = 1 - (p_miss + beta * p_fa)
+
+        assert result.term_weighted_value(keyword='four') == pytest.approx(twv)
