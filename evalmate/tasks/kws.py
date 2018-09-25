@@ -30,7 +30,10 @@ class KWSEvaluation(base.Evaluation):
 
     @property
     def template_data(self):
-        return {'confusion': self.confusion}
+        return {
+            'confusion': self.confusion,
+            'eval': self
+        }
 
     def keywords(self):
         """
