@@ -11,7 +11,7 @@ class ClassificationEvaluation(base.Evaluation):
     Arguments:
         aligned_segments (list): List of :py:class:`evalmate.utils.structure.Segment`.
 
-    Attributes
+    Attributes:
         ref_outcome (Outcome): The outcome of the ground-truth/reference.
         hyp_outcome (Outcome): The outcome of the system-output/hypothesis.
         confusion (AggregatedConfusion): Confusion result

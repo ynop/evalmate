@@ -13,10 +13,10 @@ class KWSEvaluation(base.Evaluation):
     Arguments:
         aligned_labels (list): List of :py:class:`evalmate.utils.structure.LabelPair`.
 
-    Attributes
+    Attributes:
         ref_outcome (Outcome): The outcome of the ground-truth/reference.
         hyp_outcome (Outcome): The outcome of the system-output/hypothesis.
-        confusion (ConfusionStats): Confusion statistics
+        confusion (AggregatedConfusion): Confusion statistics
     """
 
     def __init__(self, ref_outcome, hyp_outcome, aligned_labels):
