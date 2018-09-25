@@ -78,6 +78,9 @@ class TestOutcome:
     def test_total_duration(self, sample_outcome):
         assert sample_outcome.total_duration == pytest.approx(41.8 + 48.9 + 37.2)
 
+    def test_all_values(self, sample_outcome):
+        assert sample_outcome.all_values == {'up', 'down', 'left', 'right'}
+
 
 class TestLabelSet:
 

@@ -59,6 +59,18 @@ class Outcome:
 
         return sum(self.utterance_durations.values())
 
+    @property
+    def all_values(self):
+        """
+        Return a set of all values, occurring in the outcome.
+        """
+        values = set()
+
+        for ll in self.label_lists.values():
+            values.update(ll.label_values())
+
+        return values
+
 
 class LabelSet:
     """
