@@ -183,6 +183,73 @@ class TestSegmentAligner:
         assert segment.ref == []
         assert segment.hyp == [assets.Label('c', 5, 8)]
 
+    def test_align_empty_ground_truth(self, aligner):
+        ref = assets.LabelList(labels=[
+        ])
+
+        hyp = assets.LabelList(labels=[
+            assets.Label('b', 4, 8)
+        ])
+
+        alignment = aligner.align(ref, hyp)
+
+        assert len(alignment) == 1
+
+        segment = alignment[0]
+        assert segment.start == 4
+        assert segment.end == 8
+        assert segment.ref == []
+        assert segment.hyp == [assets.Label('b', 4, 8)]
+
+    def test_align_empty_hypothesis(self, aligner):
+        ref = assets.LabelList(labels=[
+            assets.Label('b', 4, 8)
+        ])
+
+        hyp = assets.LabelList(labels=[
+        ])
+
+        alignment = aligner.align(ref, hyp)
+
+        assert len(alignment) == 1
+
+        segment = alignment[0]
+        assert segment.start == 4
+        assert segment.end == 8
+        assert segment.ref == [assets.Label('b', 4, 8)]
+        assert segment.hyp == []
+
+    def test_align_different_start(self, aligner):
+        ref = assets.LabelList(labels=[
+            assets.Label('b', 4, 9)
+        ])
+
+        hyp = assets.LabelList(labels=[
+            assets.Label('b', 2, 8)
+        ])
+
+        alignment = aligner.align(ref, hyp)
+
+        assert len(alignment) == 3
+
+        segment = alignment[0]
+        assert segment.start == 2
+        assert segment.end == 4
+        assert segment.ref == []
+        assert segment.hyp == [assets.Label('b', 2, 8)]
+
+        segment = alignment[1]
+        assert segment.start == 4
+        assert segment.end == 8
+        assert segment.ref == [assets.Label('b', 4, 9)]
+        assert segment.hyp == [assets.Label('b', 2, 8)]
+
+        segment = alignment[2]
+        assert segment.start == 8
+        assert segment.end == 9
+        assert segment.ref == [assets.Label('b', 4, 9)]
+        assert segment.hyp == []
+
     def test_create_event_list(self):
         ll_ref = assets.LabelList(labels=[
             assets.Label('a', 0.89, 13.73),
