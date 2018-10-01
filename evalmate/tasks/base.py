@@ -108,20 +108,27 @@ class Evaluator(abc.ABC):
 
         raise ValueError('Invalid arguments!')
 
-    def evaluate_label_lists(self, ll_ref, ll_hyp):
+    def evaluate_label_lists(self, ll_ref, ll_hyp, duration=None):
         """
         Create Evaluation for ref and hyp label-list.
+        If the duration is not provided some metrics cannot be used.
 
         Arguments:
             ref (LabelList): A label-list.
             hyp (LabelList): A label-list.
+            duration (float): The duration of the utterance, that belongs to the label-lists.
 
         Returns:
             Evaluation: The evaluation results.
         """
 
-        ref_outcome = outcome.Outcome(label_lists={'0': ll_ref})
-        hyp_outcome = outcome.Outcome(label_lists={'0': ll_hyp})
+        durations = None
+
+        if duration is not None:
+            durations = {'0': duration}
+
+        ref_outcome = outcome.Outcome(label_lists={'0': ll_ref}, utterance_durations=durations)
+        hyp_outcome = outcome.Outcome(label_lists={'0': ll_hyp}, utterance_durations=durations)
 
         return self.evaluate(ref_outcome, hyp_outcome)
 
@@ -154,5 +161,8 @@ class Evaluator(abc.ABC):
 
             ref_outcome.label_lists[utterance.idx] = ll_ref
             hyp_outcome.label_lists[utterance.idx] = ll_hyp
+
+            ref_outcome.utterance_durations[utterance.idx] = utterance.duration
+            hyp_outcome.utterance_durations[utterance.idx] = utterance.duration
 
         return self.evaluate(ref_outcome, hyp_outcome)

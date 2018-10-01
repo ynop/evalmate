@@ -86,6 +86,16 @@ class Confusion(abc.ABC):
         return self.correct + self.deletions + self.substitutions
 
     @property
+    def false_negatives(self):
+        """
+        Amount of false negatives (No indication of precence, when it should be present).
+
+        Note:
+            Equal to 'self.total - self.correct'
+        """
+        return self.deletions + self.substitutions
+
+    @property
     def false_positives(self):
         """
         Amount of false positives (Indications of presence, when it is not present).

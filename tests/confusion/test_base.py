@@ -35,6 +35,9 @@ class TestConfusion:
     def test_total(self, sample_confusion):
         assert sample_confusion.total == pytest.approx(19.9 + 12.39 + 13.1)
 
+    def test_false_negatives(self, sample_confusion):
+        assert sample_confusion.false_negatives == pytest.approx(12.39 + 13.1)
+
     def test_false_positives(self, sample_confusion):
         assert sample_confusion.false_positives == pytest.approx(28.2 + 21.9)
 

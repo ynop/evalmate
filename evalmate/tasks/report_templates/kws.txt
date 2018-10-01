@@ -1,6 +1,11 @@
 Overall
 ---------------------
 
+TWV:                {{"%8.2f"|format(eval.term_weighted_value())}}
+
+FRR:                {{"%8.2f"|format(eval.false_rejection_rate())}}
+FAR:                {{"%8.2f"|format(eval.false_alarm_rate())}}
+
 Precision:          {{"%8.2f"|format(confusion.precision * 100)}}
 Recall:             {{"%8.2f"|format(confusion.recall * 100)}}
 
@@ -10,7 +15,7 @@ S (substitutions):  {{"%8.2f"|format(confusion.substitutions)}}
 D (deletions):      {{"%8.2f"|format(confusion.deletions)}}
 I (insertions):     {{"%8.2f"|format(confusion.insertions)}}
 
-Classes
+Keywords
 ---------------------
 
 {% for i in confusion.instances.values() %}

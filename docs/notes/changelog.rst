@@ -4,6 +4,10 @@ Changelog
 Next Version
 ------------
 
+**New Features**
+
+* Introduced False Rejection Rate, False Alarm Rate, Term-Weight Value for the Keyword Spotting task.
+
 v0.2.0
 ------
 
