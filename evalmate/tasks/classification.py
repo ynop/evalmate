@@ -9,7 +9,8 @@ class ClassificationEvaluation(base.Evaluation):
     Result of an evaluation of a keyword spotting task.
 
     Arguments:
-        aligned_segments (list): List of :py:class:`evalmate.utils.structure.Segment`.
+        aligned_segments (dict): Dict of lists with :py:class:`evalmate.utils.structure.Segment`.
+                                 Key is the utterance-idx.
 
     Attributes:
         ref_outcome (Outcome): The outcome of the ground-truth/reference.
@@ -21,7 +22,11 @@ class ClassificationEvaluation(base.Evaluation):
         super(ClassificationEvaluation, self).__init__(ref_outcome, hyp_outcome)
 
         self.aligned_segments = aligned_segments
-        self.confusion = confusion.create_from_segments(self.aligned_segments)
+        all_segments = []
+        for utt_segments in aligned_segments.values():
+            all_segments.extend(utt_segments)
+
+        self.confusion = confusion.create_from_segments(all_segments)
 
     @property
     def default_template(self):
@@ -31,7 +36,8 @@ class ClassificationEvaluation(base.Evaluation):
     def template_data(self):
         return {'confusion': self.confusion,
                 'ref_outcome': self.ref_outcome,
-                'hyp_outcome': self.hyp_outcome}
+                'hyp_outcome': self.hyp_outcome,
+                'segments': self.aligned_segments}
 
 
 class ClassificationEvaluator(base.Evaluator):
@@ -51,7 +57,7 @@ class ClassificationEvaluator(base.Evaluator):
         return 'domain'
 
     def do_evaluate(self, ref, hyp):
-        all = []
+        utt_segments = {}
 
         for key, ll_ref in ref.label_lists.items():
             ll_hyp = hyp.label_lists[key]
@@ -59,9 +65,9 @@ class ClassificationEvaluator(base.Evaluator):
             aligned_segments = self.aligner.align(ll_ref, ll_hyp)
             aligned_segments = ClassificationEvaluator.flatten_overlapping_labels(aligned_segments)
 
-            all.extend(aligned_segments)
+            utt_segments[key] = aligned_segments
 
-        return ClassificationEvaluation(ref, hyp, all)
+        return ClassificationEvaluation(ref, hyp, utt_segments)
 
     @staticmethod
     def flatten_overlapping_labels(aligned_segments):
