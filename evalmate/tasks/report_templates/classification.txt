@@ -1,5 +1,5 @@
 Overall
-########################################################################################
+###########################################################################################################
 
 Precision:          {{"%8.2f"|format(confusion.precision * 100)}}
 Recall:             {{"%8.2f"|format(confusion.recall * 100)}}
@@ -34,7 +34,7 @@ Length - Median:    {{"%8.2f"|format(hs.length_median)}}
 Length - Variance:  {{"%8.2f"|format(hs.length_variance)}}
 
 Classes
-########################################################################################
+###########################################################################################################
 
 {% for i in confusion.instances.values()|sort(attribute='value') %}
 {{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}},  Recall: {{"%2.2f"|format(i.recall * 100)}}

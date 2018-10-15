@@ -56,6 +56,8 @@ class Evaluator(abc.ABC):
     which performs the evaluation on ref and hyp outcome.
     """
 
+    DEFAULT_UTT_IDX = 'noname'
+
     @classmethod
     @abc.abstractmethod
     def default_label_list_idx(cls):
@@ -125,10 +127,10 @@ class Evaluator(abc.ABC):
         durations = None
 
         if duration is not None:
-            durations = {'0': duration}
+            durations = {self.DEFAULT_UTT_IDX: duration}
 
-        ref_outcome = outcome.Outcome(label_lists={'0': ll_ref}, utterance_durations=durations)
-        hyp_outcome = outcome.Outcome(label_lists={'0': ll_hyp}, utterance_durations=durations)
+        ref_outcome = outcome.Outcome(label_lists={self.DEFAULT_UTT_IDX: ll_ref}, utterance_durations=durations)
+        hyp_outcome = outcome.Outcome(label_lists={self.DEFAULT_UTT_IDX: ll_hyp}, utterance_durations=durations)
 
         return self.evaluate(ref_outcome, hyp_outcome)
 

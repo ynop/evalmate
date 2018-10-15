@@ -27,7 +27,7 @@ class TestClassificationEvaluator:
         ]
 
         assert isinstance(result, tasks.ClassificationEvaluation)
-        assert sorted(result.aligned_segments) == sorted(expected_segments)
+        assert sorted(result.aligned_segments[tasks.Evaluator.DEFAULT_UTT_IDX]) == sorted(expected_segments)
 
     def test_evaluate_corpus_with_hyp_labels(self, classification_ref_corpus_and_hyp_labels):
         ref_corpus, hyps = classification_ref_corpus_and_hyp_labels
