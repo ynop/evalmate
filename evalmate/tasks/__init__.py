@@ -42,6 +42,14 @@ KWS
 .. autoclass:: KWSEvaluator
    :members:
 
+ASR
+---
+
+.. autoclass:: ASREvaluation
+   :members:
+
+.. autoclass:: ASREvaluator
+   :members:
 
 """
 
@@ -56,3 +64,6 @@ from .classification import ClassificationEvaluation  # noqa: F401
 
 from .kws import KWSEvaluation  # noqa: F401
 from .kws import KWSEvaluator  # noqa: F401
+
+from .asr import ASREvaluation  # noqa: F401
+from .asr import ASREvaluator  # noqa: F401
