@@ -15,9 +15,17 @@ Segment-Based
 
 .. autoclass:: SegmentAligner
    :members:
+
+Levenshtein
+-----------
+
+.. autoclass:: LevenshteinAligner
+   :members:
 """
 
 from .one_to_one import OneToOneAligner  # noqa: F401
 from .one_to_one import BipartiteMatchingOneToOneAligner  # noqa: F401
 
 from .segments import SegmentAligner  # noqa: F401
+
+from .levenshtein import LevenshteinAligner   # noqa: F401
