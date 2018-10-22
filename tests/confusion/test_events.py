@@ -69,3 +69,9 @@ class TestInstanceConfusionStats:
 
     def test_total(self, sample_confusion):
         assert sample_confusion.total == 7
+
+    def test_substitutions_by_count(self, sample_confusion):
+        assert sample_confusion.substitutions_by_count() == [
+            ('down', 1),
+            ('right', 1)
+        ]

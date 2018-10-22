@@ -48,3 +48,14 @@ class EventConfusion(base.Confusion):
     @property
     def substitutions_out(self):
         return sum([len(x) for x in self.substitution_out_pairs.values()])
+
+    def substitutions_by_count(self):
+        """
+        Return a list of tuples (Substituted-value, Number-of-substitutions) ordered by number of substitutions
+        descending.
+
+        Returns:
+            list: List of tuples.
+        """
+        subs = [(x, len(y)) for x, y in self.substitution_pairs.items()]
+        return sorted(subs, key=lambda x: (-x[1], x[0]))
