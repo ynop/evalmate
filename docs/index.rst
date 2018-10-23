@@ -14,7 +14,7 @@ Evalmate is a set of tools for evaluate audio related machine learning tasks.
     :maxdepth: 2
     :caption: Package Reference
 
-    reference/tasks
+    reference/evaluator
     reference/confusion
     reference/alignment
 

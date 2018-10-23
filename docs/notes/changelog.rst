@@ -4,6 +4,10 @@ Changelog
 Next Version
 ------------
 
+**Breaking changes**
+
+* Refactoring of all elements, so that it is more obvious which aligner is used for which evaluator and confusion.
+
 **New Features**
 
 * Introduced False Rejection Rate, False Alarm Rate, Term-Weight Value for the Keyword Spotting task.

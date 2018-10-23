@@ -1,0 +1,21 @@
+{% include 'asr.txt' %}
+
+Tokens
+###########################################################################################################
+
+{% for name, i in confusion.instances.items()|sort(attribute='0') %}
+{{"%-15s"|format(name)}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
+{%- endfor %}
+
+Utterances
+###########################################################################################################
+
+{% for utt_idx, pairs in utt_to_label_pairs.items() %}
+{{ utt_idx }} :
+    {% for pair in pairs -%}
+        {{  pair.padded_ref_value() }}{{ " " }}
+    {%- endfor %}
+    {% for pair in pairs -%}
+        {{  pair.padded_hyp_value() }}{{ " " }}
+    {%- endfor %}
+{% endfor %}

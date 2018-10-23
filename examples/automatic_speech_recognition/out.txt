@@ -39,25 +39,25 @@ Utterances
 
 
 001-a :
-        ['how', 'about', 'evalmate']
-        ['how', 'about', 'evaluate']
+    how about evalmate 
+    how about evaluate 
 
 001-b :
-        ['whats', 'that']
-        ['whats', 'this']
+    whats that 
+    whats this 
 
 002-a :
-        ['where', 'is', 'the', 'store']
-        ['where', 'is', 'the', None]
+    where is the store 
+    where is the     - 
 
 003-a :
-        ['is', 'this', 'the', 'boss']
-        ['is', None, 'the', 'boss']
+    is this the boss 
+    is    - the boss 
 
 003-b :
-        ['take', None, 'the', 'one', 'from', 'the', 'top']
-        ['take', 'up', 'the', 'one', 'from', 'the', 'top']
+    take    - the one from the top 
+    take   up the one from the top 
 
 003-c :
-        ['bottom', 'is', 'below', 'top']
-        ['bottom', 'is', 'below', 'top']
+    bottom is below top 
+    bottom is below top 

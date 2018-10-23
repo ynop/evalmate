@@ -29,10 +29,10 @@ AggregatedConfusion
 
 """
 
-from .base import Confusion  # noqa: F401
+from .confusion import Confusion  # noqa: F401
 
-from .segments import SegmentConfusion  # noqa: F401
-from .events import EventConfusion  # noqa: F401
+from .segment import SegmentConfusion  # noqa: F401
+from .event import EventConfusion  # noqa: F401
 from .aggregation import AggregatedConfusion  # noqa: F401
 
 
