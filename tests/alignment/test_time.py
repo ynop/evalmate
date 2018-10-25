@@ -80,3 +80,20 @@ class TestFullMatchingAligner:
         assert result == [
             alignment.LabelPair(assets.Label('a', 4.2, 8.5), None)
         ]
+
+    def test_align_endless_labels(self):
+        ref_ll = assets.LabelList(labels=[
+            assets.Label('a', 4.2, 8.5),
+            assets.Label('b', 13.1, 19.23)
+        ])
+
+        hyp_ll = assets.LabelList(labels=[
+            assets.Label('x', 9.2, -1)
+        ])
+
+        result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
+
+        assert sorted(result) == sorted([
+            alignment.LabelPair(assets.Label('a', 4.2, 8.5), None),
+            alignment.LabelPair(assets.Label('b', 13.1, 19.23), assets.Label('x', 9.2, -1))
+        ])

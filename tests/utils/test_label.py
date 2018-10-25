@@ -45,3 +45,9 @@ def test_overlap_time_with_left_overlap():
     overlap = label.overlap_time(assets.Label('a', start=1.45, end=2.23),
                                  assets.Label('b', start=0.04, end=2.01))
     assert overlap == pytest.approx(2.01 - 1.45)
+
+
+def test_overlap_time_with_endless_label():
+    overlap = label.overlap_time(assets.Label('a', start=1.45, end=2.23),
+                                 assets.Label('b', start=0.04, end=-1))
+    assert overlap == pytest.approx(2.23 - 1.45)
