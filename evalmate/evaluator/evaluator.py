@@ -36,12 +36,33 @@ class Evaluation(abc.ABC):
         return 'default'
 
     def write_report(self, path, template=None):
+        """
+        Write the report to the given path.
+
+        Args:
+            path (str): Path to write the report to.
+            template (str): Name of the Jinja2 template to use. If None, the ``default_template()`` is used.
+                            All available templates are in the ``report_templates`` folder.
+        """
+        with open(path, 'w') as f:
+            f.write(self.get_report(template=template))
+
+    def get_report(self, template=None):
+        """
+        Generate and return a report.
+
+        Args:
+            template (str): Name of the Jinja2 template to use. If None, the ``default_template()`` is used.
+                            All available templates are in the ``report_templates`` folder.
+
+        Returns:
+            str: The rendered report.
+        """
         if template is None:
             template = self.default_template
 
-        with open(path, 'w') as f:
-            template = self._load_template(template)
-            f.write(template.render(**self.template_data))
+        template = self._load_template(template)
+        return template.render(**self.template_data)
 
     def _load_template(self, name):
         return env.get_template('{}.txt'.format(name))
