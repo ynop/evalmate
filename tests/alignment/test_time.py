@@ -31,6 +31,60 @@ class TestBipartiteMatchingAligner:
 
         assert sorted(expected_matches) == sorted(matches)
 
+    def test_align_empty_hyp_and_ref_returns_empty_list(self):
+        ll_ref = assets.LabelList(labels=[
+        ])
+
+        ll_hyp = assets.LabelList(labels=[
+        ])
+
+        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
+                                                     end_delta_threshold=-1,
+                                                     substitution_penalty=2,
+                                                     non_overlap_penalty_weight=1)
+
+        matches = aligner.align(ll_ref, ll_hyp)
+
+        assert matches == []
+
+    def test_align_empty_hyp_returns_deletions(self):
+        ll_ref = assets.LabelList(labels=[
+            assets.Label('greasy', 1.4, 1.9)
+        ])
+
+        ll_hyp = assets.LabelList(labels=[
+        ])
+
+        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
+                                                     end_delta_threshold=-1,
+                                                     substitution_penalty=2,
+                                                     non_overlap_penalty_weight=1)
+
+        matches = aligner.align(ll_ref, ll_hyp)
+
+        assert matches == [
+            alignment.LabelPair(assets.Label('greasy', 1.4, 1.9), None)
+        ]
+
+    def test_align_empty_ref_returns_insertions(self):
+        ll_ref = assets.LabelList(labels=[
+        ])
+
+        ll_hyp = assets.LabelList(labels=[
+            assets.Label('greasy', 1.4, 1.9)
+        ])
+
+        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
+                                                     end_delta_threshold=-1,
+                                                     substitution_penalty=2,
+                                                     non_overlap_penalty_weight=1)
+
+        matches = aligner.align(ll_ref, ll_hyp)
+
+        assert matches == [
+            alignment.LabelPair(None, assets.Label('greasy', 1.4, 1.9))
+        ]
+
 
 class TestFullMatchingAligner:
 

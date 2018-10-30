@@ -56,6 +56,16 @@ class BipartiteMatchingAligner(aligner.EventAligner):
             list: A list of :class:`evalmate.alignment.LabelPair`. Every pair contains one label (event) from
             the ground truth and one from the system output, that are aligned. One of them also can be ``None``.
         """
+
+        if len(ll_ref) == 0 and len(ll_hyp) == 0:
+            return []
+
+        if len(ll_ref) == 0:
+            return [utils.LabelPair(None, x) for x in ll_hyp]
+
+        if len(ll_hyp) == 0:
+            return [utils.LabelPair(x, None) for x in ll_ref]
+
         close_pairs, ref_no_match, hyp_no_match = labellist.close_pairs(ll_ref, ll_hyp,
                                                                         self.start_delta_threshold,
                                                                         self.end_delta_threshold)

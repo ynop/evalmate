@@ -4,7 +4,6 @@ from evalmate.utils import label
 def close_pairs(ll_ref, ll_hyp, start_delta_threshold=0.5, end_delta_threshold=-1):
     """
     Return a list of all close label pairs as indices within label-list.
-    All labels that have no close counterpart are returned as pair with -1.
     Close means within a given time threshold.
 
     Args:
