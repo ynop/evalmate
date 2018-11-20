@@ -1,13 +1,13 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 from evalmate import alignment
 
 
 def ll_with_values(values):
-    ll = assets.LabelList()
+    ll = annotations.LabelList()
 
     for value in values:
-        ll.append(assets.Label(value))
+        ll.append(annotations.Label(value))
 
     return ll
 
@@ -23,9 +23,9 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), None),
-            alignment.LabelPair(assets.Label('c'), assets.Label('c')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), None),
+            alignment.LabelPair(annotations.Label('c'), annotations.Label('c')),
         ]
 
     def test_align_insertion(self):
@@ -37,10 +37,10 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('b')),
-            alignment.LabelPair(None, assets.Label('b')),
-            alignment.LabelPair(assets.Label('c'), assets.Label('c')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('b')),
+            alignment.LabelPair(None, annotations.Label('b')),
+            alignment.LabelPair(annotations.Label('c'), annotations.Label('c')),
         ]
 
     def test_align_substitution(self):
@@ -52,9 +52,9 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('x')),
-            alignment.LabelPair(assets.Label('c'), assets.Label('c')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('x')),
+            alignment.LabelPair(annotations.Label('c'), annotations.Label('c')),
         ]
 
     def test_align_empty_hyp_returns_all_none(self):
@@ -66,9 +66,9 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(assets.Label('a'), None),
-            alignment.LabelPair(assets.Label('b'), None),
-            alignment.LabelPair(assets.Label('c'), None),
+            alignment.LabelPair(annotations.Label('a'), None),
+            alignment.LabelPair(annotations.Label('b'), None),
+            alignment.LabelPair(annotations.Label('c'), None),
         ]
 
     def test_align_empty_ref_returns_all_none(self):
@@ -80,9 +80,9 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(None, assets.Label('a')),
-            alignment.LabelPair(None, assets.Label('b')),
-            alignment.LabelPair(None, assets.Label('c')),
+            alignment.LabelPair(None, annotations.Label('a')),
+            alignment.LabelPair(None, annotations.Label('b')),
+            alignment.LabelPair(None, annotations.Label('c')),
         ]
 
     def test_align_high_substitution_cost_forces_deletions_and_insertions(self):
@@ -94,8 +94,8 @@ class TestLevenshteinAligner:
         )
 
         assert ali == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), None),
-            alignment.LabelPair(None, assets.Label('x')),
-            alignment.LabelPair(assets.Label('c'), assets.Label('c')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), None),
+            alignment.LabelPair(None, annotations.Label('x')),
+            alignment.LabelPair(annotations.Label('c'), annotations.Label('c')),
         ]

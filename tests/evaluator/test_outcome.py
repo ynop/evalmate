@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 import pytest
 
@@ -7,29 +7,29 @@ from evalmate.evaluator import outcome
 
 @pytest.fixture
 def sample_outcome():
-    a = assets.LabelList(labels=[
-        assets.Label('up', start=5.28, end=5.99),
-        assets.Label('down', start=10.35, end=11.12),
-        assets.Label('right', start=20.87, end=22.01),
-        assets.Label('up', start=33.00, end=33.4),
-        assets.Label('up', start=33.4, end=33.8),
-        assets.Label('down', start=39.28, end=40.0)
+    a = annotations.LabelList(labels=[
+        annotations.Label('up', start=5.28, end=5.99),
+        annotations.Label('down', start=10.35, end=11.12),
+        annotations.Label('right', start=20.87, end=22.01),
+        annotations.Label('up', start=33.00, end=33.4),
+        annotations.Label('up', start=33.4, end=33.8),
+        annotations.Label('down', start=39.28, end=40.0)
     ])
 
-    b = assets.LabelList(labels=[
-        assets.Label('up', start=1.2, end=4.55),
-        assets.Label('right', start=8.37, end=14.01),
-        assets.Label('down', start=31.20, end=33.4),
-        assets.Label('up', start=33.4, end=33.8),
-        assets.Label('down', start=39.28, end=40.0)
+    b = annotations.LabelList(labels=[
+        annotations.Label('up', start=1.2, end=4.55),
+        annotations.Label('right', start=8.37, end=14.01),
+        annotations.Label('down', start=31.20, end=33.4),
+        annotations.Label('up', start=33.4, end=33.8),
+        annotations.Label('down', start=39.28, end=40.0)
     ])
 
-    c = assets.LabelList(labels=[
-        assets.Label('up', start=2.98, end=5.92),
-        assets.Label('left', start=9.35, end=13.12),
-        assets.Label('right', start=15.87, end=19.01),
-        assets.Label('down', start=28.20, end=33.4),
-        assets.Label('up', start=33.4, end=33.8),
+    c = annotations.LabelList(labels=[
+        annotations.Label('up', start=2.98, end=5.92),
+        annotations.Label('left', start=9.35, end=13.12),
+        annotations.Label('right', start=15.87, end=19.01),
+        annotations.Label('down', start=28.20, end=33.4),
+        annotations.Label('up', start=33.4, end=33.8),
     ])
 
     return outcome.Outcome(label_lists={'a': a, 'b': b, 'c': c},
@@ -42,22 +42,22 @@ class TestOutcome:
         ls = sample_outcome.label_set()
 
         expected = [
-            assets.Label('up', start=5.28, end=5.99),
-            assets.Label('down', start=10.35, end=11.12),
-            assets.Label('right', start=20.87, end=22.01),
-            assets.Label('up', start=33.00, end=33.4),
-            assets.Label('up', start=33.4, end=33.8),
-            assets.Label('down', start=39.28, end=40.0),
-            assets.Label('up', start=1.2, end=4.55),
-            assets.Label('right', start=8.37, end=14.01),
-            assets.Label('down', start=31.20, end=33.4),
-            assets.Label('up', start=33.4, end=33.8),
-            assets.Label('down', start=39.28, end=40.0),
-            assets.Label('up', start=2.98, end=5.92),
-            assets.Label('left', start=9.35, end=13.12),
-            assets.Label('right', start=15.87, end=19.01),
-            assets.Label('down', start=28.20, end=33.4),
-            assets.Label('up', start=33.4, end=33.8),
+            annotations.Label('up', start=5.28, end=5.99),
+            annotations.Label('down', start=10.35, end=11.12),
+            annotations.Label('right', start=20.87, end=22.01),
+            annotations.Label('up', start=33.00, end=33.4),
+            annotations.Label('up', start=33.4, end=33.8),
+            annotations.Label('down', start=39.28, end=40.0),
+            annotations.Label('up', start=1.2, end=4.55),
+            annotations.Label('right', start=8.37, end=14.01),
+            annotations.Label('down', start=31.20, end=33.4),
+            annotations.Label('up', start=33.4, end=33.8),
+            annotations.Label('down', start=39.28, end=40.0),
+            annotations.Label('up', start=2.98, end=5.92),
+            annotations.Label('left', start=9.35, end=13.12),
+            annotations.Label('right', start=15.87, end=19.01),
+            annotations.Label('down', start=28.20, end=33.4),
+            annotations.Label('up', start=33.4, end=33.8),
         ]
 
         assert sorted(expected) == sorted(ls.labels)
@@ -66,11 +66,11 @@ class TestOutcome:
         ls = sample_outcome.label_set_for_value('down')
 
         expected = [
-            assets.Label('down', start=10.35, end=11.12),
-            assets.Label('down', start=39.28, end=40.0),
-            assets.Label('down', start=31.20, end=33.4),
-            assets.Label('down', start=39.28, end=40.0),
-            assets.Label('down', start=28.20, end=33.4)
+            annotations.Label('down', start=10.35, end=11.12),
+            annotations.Label('down', start=39.28, end=40.0),
+            annotations.Label('down', start=31.20, end=33.4),
+            annotations.Label('down', start=39.28, end=40.0),
+            annotations.Label('down', start=28.20, end=33.4)
         ]
 
         assert sorted(expected) == sorted(ls.labels)

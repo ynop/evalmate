@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 from evalmate.utils import labellist
 
@@ -22,17 +22,17 @@ def test_close_pairs(kws_ref_and_hyp_label_list):
 
 
 def test_overlapping_pairs():
-    ll_ref = assets.LabelList(labels=[
-        assets.Label('a', 2.2, 3.4),
-        assets.Label('c', 19.3, 33.0),
-        assets.Label('b', 5.0, 8.43)
+    ll_ref = annotations.LabelList(labels=[
+        annotations.Label('a', 2.2, 3.4),
+        annotations.Label('c', 19.3, 33.0),
+        annotations.Label('b', 5.0, 8.43)
     ])
 
-    ll_hyp = assets.LabelList(labels=[
-        assets.Label('x', 2.0, 3.0),
-        assets.Label('y', 3.3, 4.5),
-        assets.Label('z', 6.3, 8.2),
-        assets.Label('w', 39.0, 44.3)
+    ll_hyp = annotations.LabelList(labels=[
+        annotations.Label('x', 2.0, 3.0),
+        annotations.Label('y', 3.3, 4.5),
+        annotations.Label('z', 6.3, 8.2),
+        annotations.Label('w', 39.0, 44.3)
     ])
 
     pairs, ref_rest, hyp_rest = labellist.overlapping_pairs(ll_ref, ll_hyp, min_overlap=0.1)

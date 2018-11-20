@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 from evalmate import alignment
 from evalmate import evaluator
@@ -9,13 +9,13 @@ class TestASREvaluator:
     def test_evaluate(self):
         ref = evaluator.Outcome(
             label_lists={
-                'a': assets.LabelList(labels=[assets.Label('a b a d f a b')])
+                'a': annotations.LabelList(labels=[annotations.Label('a b a d f a b')])
             }
         )
 
         hyp = evaluator.Outcome(
             label_lists={
-                'a': assets.LabelList(labels=[assets.Label('a b d f i b')])
+                'a': annotations.LabelList(labels=[annotations.Label('a b d f i b')])
             }
         )
 
@@ -23,29 +23,29 @@ class TestASREvaluator:
 
         assert len(result.utt_to_label_pairs) == 1
         assert result.utt_to_label_pairs['a'] == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('b')),
-            alignment.LabelPair(assets.Label('a'), None),
-            alignment.LabelPair(assets.Label('d'), assets.Label('d')),
-            alignment.LabelPair(assets.Label('f'), assets.Label('f')),
-            alignment.LabelPair(assets.Label('a'), assets.Label('i')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('b')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('b')),
+            alignment.LabelPair(annotations.Label('a'), None),
+            alignment.LabelPair(annotations.Label('d'), annotations.Label('d')),
+            alignment.LabelPair(annotations.Label('f'), annotations.Label('f')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('i')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('b')),
         ]
 
     def test_evaluate_with_multiple_labels(self):
         ref = evaluator.Outcome(
             label_lists={
-                'a': assets.LabelList(labels=[
-                    assets.Label('a b', start=0, end=3),
-                    assets.Label('a d', start=3, end=5),
-                    assets.Label('f a b', start=5, end=6)
+                'a': annotations.LabelList(labels=[
+                    annotations.Label('a b', start=0, end=3),
+                    annotations.Label('a d', start=3, end=5),
+                    annotations.Label('f a b', start=5, end=6)
                 ])
             }
         )
 
         hyp = evaluator.Outcome(
             label_lists={
-                'a': assets.LabelList(labels=[assets.Label('a b d f i b')])
+                'a': annotations.LabelList(labels=[annotations.Label('a b d f i b')])
             }
         )
 
@@ -53,11 +53,11 @@ class TestASREvaluator:
 
         assert len(result.utt_to_label_pairs) == 1
         assert result.utt_to_label_pairs['a'] == [
-            alignment.LabelPair(assets.Label('a'), assets.Label('a')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('b')),
-            alignment.LabelPair(assets.Label('a'), None),
-            alignment.LabelPair(assets.Label('d'), assets.Label('d')),
-            alignment.LabelPair(assets.Label('f'), assets.Label('f')),
-            alignment.LabelPair(assets.Label('a'), assets.Label('i')),
-            alignment.LabelPair(assets.Label('b'), assets.Label('b')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('a')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('b')),
+            alignment.LabelPair(annotations.Label('a'), None),
+            alignment.LabelPair(annotations.Label('d'), annotations.Label('d')),
+            alignment.LabelPair(annotations.Label('f'), annotations.Label('f')),
+            alignment.LabelPair(annotations.Label('a'), annotations.Label('i')),
+            alignment.LabelPair(annotations.Label('b'), annotations.Label('b')),
         ]

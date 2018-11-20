@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 from evalmate import alignment
 
@@ -65,7 +65,7 @@ class ASREvaluator(event.EventEvaluator):
         """
         Tokenize a label-list and return a new label-list with a separate label for every token.
         """
-        # TODO: CAN be replaced with ``audiomate.corpus.assets.LabelList.tokenized()`` as soon as released.
+        # TODO: CAN be replaced with ``audiomate.annotations.LabelList.tokenized()`` as soon as released.
 
         sorted_by_start = sorted(ll.labels)
         tokens = []
@@ -84,4 +84,4 @@ class ASREvaluator(event.EventEvaluator):
             else:
                 raise ValueError('Labels overlap, not able to define the correct order')
 
-        return assets.LabelList(labels=[assets.Label(t) for t in tokens])
+        return annotations.LabelList(labels=[annotations.Label(t) for t in tokens])

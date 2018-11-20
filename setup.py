@@ -20,7 +20,7 @@ setup(name='evalmate',
       license='MIT',
       packages=find_packages(exclude=['tests']),
       install_requires=[
-          'audiomate >= 1.0.0',
+          'audiomate == 3.0.0',
           'numpy >= 1.14.0',
           'scipy >= 1.1.0',
           'networkx >= 2.0',

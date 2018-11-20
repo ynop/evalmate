@@ -1,7 +1,7 @@
 import abc
 
 import audiomate
-from audiomate.corpus import assets
+from audiomate import annotations
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 from . import outcome
@@ -123,7 +123,7 @@ class Evaluator(abc.ABC):
         if isinstance(ref, outcome.Outcome) and isinstance(hyp, outcome.Outcome):
             return self.do_evaluate(ref, hyp)
 
-        if isinstance(ref, assets.LabelList) and isinstance(hyp, assets.LabelList):
+        if isinstance(ref, annotations.LabelList) and isinstance(hyp, annotations.LabelList):
             return self.evaluate_label_lists(ref, hyp)
 
         if isinstance(ref, audiomate.Corpus) and isinstance(hyp, dict):

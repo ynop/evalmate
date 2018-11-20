@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 
 from evalmate import alignment
 from evalmate import confusion
@@ -11,40 +11,42 @@ def sample_confusion():
     conf = confusion.EventConfusion('up')
 
     conf.correct_pairs.extend([
-        alignment.LabelPair(assets.Label('up', start=5.28, end=5.99), assets.Label('up', start=5.20, end=5.88)),
-        alignment.LabelPair(assets.Label('up', start=39.28, end=40.0), assets.Label('down', start=39.27, end=40.01))
+        alignment.LabelPair(annotations.Label('up', start=5.28, end=5.99),
+                            annotations.Label('up', start=5.20, end=5.88)),
+        alignment.LabelPair(annotations.Label('up', start=39.28, end=40.0),
+                            annotations.Label('down', start=39.27, end=40.01))
     ])
 
     conf.insertion_pairs.extend([
-        alignment.LabelPair(None, assets.Label('up', start=32.00, end=32.5)),
-        alignment.LabelPair(None, assets.Label('up', start=34.2, end=34.8)),
-        alignment.LabelPair(None, assets.Label('up', start=55.3, end=56.9))
+        alignment.LabelPair(None, annotations.Label('up', start=32.00, end=32.5)),
+        alignment.LabelPair(None, annotations.Label('up', start=34.2, end=34.8)),
+        alignment.LabelPair(None, annotations.Label('up', start=55.3, end=56.9))
     ])
 
     conf.deletion_pairs.extend([
-        alignment.LabelPair(assets.Label('up', start=20.87, end=22.01), None),
-        alignment.LabelPair(assets.Label('up', start=33.00, end=33.4), None),
-        alignment.LabelPair(assets.Label('up', start=33.4, end=33.8), None),
+        alignment.LabelPair(annotations.Label('up', start=20.87, end=22.01), None),
+        alignment.LabelPair(annotations.Label('up', start=33.00, end=33.4), None),
+        alignment.LabelPair(annotations.Label('up', start=33.4, end=33.8), None),
     ])
 
     conf.substitution_pairs['right'].extend([
-        alignment.LabelPair(assets.Label('up', start=10.35, end=11.12),
-                            assets.Label('right', start=10.30, end=11.18)),
+        alignment.LabelPair(annotations.Label('up', start=10.35, end=11.12),
+                            annotations.Label('right', start=10.30, end=11.18)),
     ])
 
     conf.substitution_pairs['down'].extend([
-        alignment.LabelPair(assets.Label('up', start=74.28, end=75.0),
-                            assets.Label('down', start=74.17, end=75.01))
+        alignment.LabelPair(annotations.Label('up', start=74.28, end=75.0),
+                            annotations.Label('down', start=74.17, end=75.01))
     ])
 
     conf.substitution_out_pairs['left'].extend([
-        alignment.LabelPair(assets.Label('left', start=15.35, end=16.12),
-                            assets.Label('up', start=15.4, end=16.18)),
+        alignment.LabelPair(annotations.Label('left', start=15.35, end=16.12),
+                            annotations.Label('up', start=15.4, end=16.18)),
     ])
 
     conf.substitution_out_pairs['up'].extend([
-        alignment.LabelPair(assets.Label('down', start=84.28, end=85.09),
-                            assets.Label('up', start=84.17, end=85.01))
+        alignment.LabelPair(annotations.Label('down', start=84.28, end=85.09),
+                            annotations.Label('up', start=84.17, end=85.01))
     ])
 
     return conf

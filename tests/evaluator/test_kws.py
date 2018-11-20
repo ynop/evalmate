@@ -1,4 +1,4 @@
-from audiomate.corpus import assets
+from audiomate import annotations
 import numpy as np
 
 from evalmate import alignment
@@ -15,18 +15,18 @@ class TestKWSEvaluator:
         result = evaluator.KWSEvaluator().evaluate(ll_ref, ll_hyp)
 
         expected_matches = [
-            alignment.LabelPair(assets.Label('up', start=5.28, end=5.99),
-                                assets.Label('up', start=5.20, end=5.88)),
-            alignment.LabelPair(assets.Label('down', start=10.35, end=11.12),
-                                assets.Label('right', start=10.30, end=11.08)),
-            alignment.LabelPair(assets.Label('right', start=20.87, end=22.01), None),
-            alignment.LabelPair(assets.Label('up', start=33.00, end=33.4), None),
-            alignment.LabelPair(assets.Label('up', start=33.4, end=33.8), None),
-            alignment.LabelPair(assets.Label('down', start=39.28, end=40.0),
-                                assets.Label('down', start=39.27, end=40.01)),
-            alignment.LabelPair(None, assets.Label('up', start=32.00, end=32.5)),
-            alignment.LabelPair(None, assets.Label('up', start=34.2, end=34.8)),
-            alignment.LabelPair(None, assets.Label('left', start=39.3, end=39.9))
+            alignment.LabelPair(annotations.Label('up', start=5.28, end=5.99),
+                                annotations.Label('up', start=5.20, end=5.88)),
+            alignment.LabelPair(annotations.Label('down', start=10.35, end=11.12),
+                                annotations.Label('right', start=10.30, end=11.08)),
+            alignment.LabelPair(annotations.Label('right', start=20.87, end=22.01), None),
+            alignment.LabelPair(annotations.Label('up', start=33.00, end=33.4), None),
+            alignment.LabelPair(annotations.Label('up', start=33.4, end=33.8), None),
+            alignment.LabelPair(annotations.Label('down', start=39.28, end=40.0),
+                                annotations.Label('down', start=39.27, end=40.01)),
+            alignment.LabelPair(None, annotations.Label('up', start=32.00, end=32.5)),
+            alignment.LabelPair(None, annotations.Label('up', start=34.2, end=34.8)),
+            alignment.LabelPair(None, annotations.Label('left', start=39.3, end=39.9))
         ]
 
         assert isinstance(result, evaluator.KWSEvaluation)
