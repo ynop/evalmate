@@ -85,6 +85,35 @@ class TestBipartiteMatchingAligner:
             alignment.LabelPair(None, annotations.Label('greasy', 1.4, 1.9))
         ]
 
+    def test_align_unbalanced(self):
+        ll_ref = annotations.LabelList(labels=[
+            annotations.Label('Postauto', 24.195341, 24.698972),
+            annotations.Label('Postauto', 197.02371, 197.57205),
+            annotations.Label('Postauto', 212.287814, 212.807224),
+            annotations.Label('Postauto', 219.599014, 220.278193),
+            annotations.Label('Postauto', 220.582608, 221.290058),
+            annotations.Label('Postauto', 225.81222, 226.306647),
+            annotations.Label('Postauto', 237.598244, 238.276765),
+            annotations.Label('Postauto', 271.85043, 272.443479),
+            annotations.Label('Postauto', 312.722146, 313.320455),
+            annotations.Label('Postauto', 317.542805, 318.274582),
+            annotations.Label('Postauto', 325.259014, 325.895457),
+            annotations.Label('Postauto', 339.426438, 339.965573),
+            annotations.Label('Postauto', 343.373961, 343.893371),
+            annotations.Label('Postauto', 355.208638, 355.720159),
+            annotations.Label('Postauto', 367.627159, 368.142625)
+        ])
+
+        ll_hyp = annotations.LabelList(labels=[
+            annotations.Label('Postauto', 197.0, 197.5),
+            annotations.Label('Billag', 1070.5, 1071.0)
+        ])
+
+        aligner = alignment.BipartiteMatchingAligner()
+        matches = aligner.align(ll_ref, ll_hyp)
+
+        assert len(matches) == 16
+
 
 class TestFullMatchingAligner:
 

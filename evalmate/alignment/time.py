@@ -74,7 +74,8 @@ class BipartiteMatchingAligner(aligner.EventAligner):
         invalid_penalty = self.non_overlap_penalty_weight + self.insertion_penalty + self.deletion_penalty
 
         # Cost matrix: Add possible insertion/deletion rows/cols
-        cost = np.full((2 * len(ll_ref), 2 * len(ll_hyp)), invalid_penalty).astype(np.float)
+        size = len(ll_ref) + len(ll_hyp)
+        cost = np.full((size, size), invalid_penalty).astype(np.float)
         cost[len(ll_ref):, :] = self.insertion_penalty
         cost[:, len(ll_hyp):] = self.deletion_penalty
 

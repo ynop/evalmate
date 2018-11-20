@@ -43,6 +43,37 @@ class TestKWSEvaluator:
         assert result.confusion.deletions == 3
         assert result.confusion.insertions == 6
 
+    def test_evaluate_with_empty_hyp(self):
+        ref = evaluator.Outcome(label_lists={
+            'a': annotations.LabelList(labels=[
+                annotations.Label('one', 2.5, 4.5),
+                annotations.Label('two', 10.5, 11.5),
+            ]),
+            'b': annotations.LabelList(labels=[
+                annotations.Label('one', 1.5, 1.9),
+            ]),
+            'c': annotations.LabelList(labels=[
+                annotations.Label('two', 4.5, 4.9),
+                annotations.Label('two', 10.5, 11.5),
+            ]),
+        })
+        hyp = evaluator.Outcome(label_lists={
+            'a': annotations.LabelList(labels=[
+                annotations.Label('one', 2.5, 4.5),
+                annotations.Label('two', 10.5, 11.5),
+            ]),
+            'b': annotations.LabelList(labels=[
+            ]),
+            'c': annotations.LabelList(labels=[
+                annotations.Label('two', 4.5, 4.9),
+                annotations.Label('two', 10.5, 11.5),
+            ]),
+        })
+
+        result = evaluator.KWSEvaluator().evaluate(ref, hyp)
+
+        assert result.confusion.total == 5
+
 
 class TestKWSEvaluation:
 
