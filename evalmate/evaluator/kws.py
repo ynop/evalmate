@@ -43,6 +43,10 @@ class KWSEvaluation(event.EventEvaluation):
 
         if keyword is not None:
             conf = self.confusion.instances[keyword]
+
+            if conf.total <= 0:
+                return 0.0
+
             return conf.false_negatives / conf.total
         else:
             per_kw = [self.false_rejection_rate(kw) for kw in self.confusion.instances.keys()]

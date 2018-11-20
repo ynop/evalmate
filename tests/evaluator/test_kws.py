@@ -52,6 +52,17 @@ class TestKWSEvaluation:
         per_keyword = [2 / 7, 1 / 4, 2 / 6, 1 / 3, 1 / 4]
         assert result.false_rejection_rate() == pytest.approx(np.mean(per_keyword))
 
+    def test_false_rejection_rate_with_no_occurences_returns_zero(self):
+        result = evaluator.KWSEvaluator().evaluate(
+            annotations.LabelList(labels=[
+            ]),
+            annotations.LabelList(labels=[
+                annotations.Label('four', 2.5, 1.0)
+            ])
+        )
+
+        assert result.false_rejection_rate() == 0.0
+
     def test_false_rejection_rate_for_single_keyword(self, kws_ref_corpus_and_hyp_labels):
         result = evaluator.KWSEvaluator().evaluate(kws_ref_corpus_and_hyp_labels[0], kws_ref_corpus_and_hyp_labels[1])
 
