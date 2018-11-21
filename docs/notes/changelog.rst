@@ -4,6 +4,9 @@ Changelog
 Next Version
 ------------
 
+v0.3.0
+------
+
 **Breaking changes**
 
 * Refactoring of all elements, so that it is more obvious which aligner is used for which evaluator and confusion.
