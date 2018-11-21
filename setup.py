@@ -61,7 +61,7 @@ except FileNotFoundError:
 ##################################################
 
 setup(name='evalmate',
-      version='0.2.0',
+      version='0.3.0',
       description=DESCRIPTION,
       long_description=long_description,
       url='https://github.com/ynop/evalmate',
