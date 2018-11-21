@@ -1,2 +1,2 @@
-recursive-include evalmate/tasks/report_templates *.txt
+recursive-include evalmate/evaluator/report_templates *.txt
 include LICENSE

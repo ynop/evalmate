@@ -1,0 +1,6 @@
+bbc-one-2018-03-18 ../../../data/mixed/audio/bbc-one-2018-03-18-04-55-01.wav
+capital-fm-2018-03-23 ../../../data/mixed/audio/capital-fm-2018-03-23-04-55-01.wav
+srf2_2017_08_12 ../../../data/mixed/audio/SRF2_2017_08_12.wav
+srf3-2017-08-12 ../../../data/mixed/audio/SRF3_2017_08_12.wav
+srf3-2017-10-21 ../../../data/mixed/audio/srf3-2017-10-21-04-55-15.wav
+srf4_2017_08_12 ../../../data/mixed/audio/SRF4_2017_08_12.wav

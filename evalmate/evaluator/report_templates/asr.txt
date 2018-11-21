@@ -1,0 +1,11 @@
+Overall
+###########################################################################################################
+
+Error Rate :        {{"%8.2f"|format(confusion.error_rate * 100)}} %
+
+N (total):          {{"%8.0f"|format(confusion.total)}}
+C (correct):        {{"%8.0f"|format(confusion.correct)}}
+S (substitutions):  {{"%8.0f"|format(confusion.substitutions)}}
+D (deletions):      {{"%8.0f"|format(confusion.deletions)}}
+I (insertions):     {{"%8.0f"|format(confusion.insertions)}}
+

@@ -1,0 +1,63 @@
+Overall
+###########################################################################################################
+
+Error Rate :           21.74 %
+
+N (total):                23
+C (correct):              19
+S (substitutions):         2
+D (deletions):             2
+I (insertions):            1
+
+
+Tokens
+###########################################################################################################
+
+
+about            N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+below            N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+boss             N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+bottom           N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+evalmate         N:   1.00, C:   0.00, S:   1.00, D:   0.00, I:   0.00
+evaluate         N:   0.00, C:   0.00, S:   0.00, D:   0.00, I:   0.00
+from             N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+how              N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+is               N:   3.00, C:   3.00, S:   0.00, D:   0.00, I:   0.00
+one              N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+store            N:   1.00, C:   0.00, S:   0.00, D:   1.00, I:   0.00
+take             N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+that             N:   1.00, C:   0.00, S:   1.00, D:   0.00, I:   0.00
+the              N:   4.00, C:   4.00, S:   0.00, D:   0.00, I:   0.00
+this             N:   1.00, C:   0.00, S:   0.00, D:   1.00, I:   0.00
+top              N:   2.00, C:   2.00, S:   0.00, D:   0.00, I:   0.00
+up               N:   0.00, C:   0.00, S:   0.00, D:   0.00, I:   1.00
+whats            N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+where            N:   1.00, C:   1.00, S:   0.00, D:   0.00, I:   0.00
+
+Utterances
+###########################################################################################################
+
+
+001-a :
+    how about evalmate 
+    how about evaluate 
+
+001-b :
+    whats that 
+    whats this 
+
+002-a :
+    where is the store 
+    where is the     - 
+
+003-a :
+    is this the boss 
+    is    - the boss 
+
+003-b :
+    take    - the one from the top 
+    take   up the one from the top 
+
+003-c :
+    bottom is below top 
+    bottom is below top 

@@ -1,7 +1,7 @@
-from . import base
+from . import confusion
 
 
-class AggregatedConfusion(base.Confusion):
+class AggregatedConfusion(confusion.Confusion):
     """
     Class to aggregate multiple confusions.
 

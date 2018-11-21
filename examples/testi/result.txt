@@ -1,0 +1,302 @@
+Overall
+###########################################################################################################
+
+Precision:             93.12
+Recall:                92.21
+
+N (total):          12210.53
+C (correct):        11259.26
+S (substitutions):    809.16
+D (deletions):        142.12
+I (insertions):        22.78
+
+Ground-Truth
+----------------------------
+Count:                    99
+Length - Min:           0.46
+Length - Max:        1856.93
+Length - Mean:        123.34
+Length - Median:       30.72
+Length - Variance:  44639.17
+
+
+System Output
+----------------------------
+Count:                   110
+Length - Min:           0.30
+Length - Max:         940.00
+Length - Mean:        109.92
+Length - Median:       25.00
+Length - Variance:  27542.79
+
+Classes
+###########################################################################################################
+
+
+music            Precision: 94.12,  Recall: 93.20
+                 N:7569.48, C:7054.79, S: 372.57, D: 142.12, I:   4.50
+
+            REF  L-Min:    0.46, L-Max:  511.53, L-Mean:  154.48, L-Median:  170.05, L-Var:14663.25
+            HYP  L-Min:    0.42, L-Max:  794.50, L-Mean:  138.81, L-Median:   73.38, L-Var:26678.35
+
+
+other            Precision: 91.49,  Recall: 90.59
+                 N:4641.05, C:4204.47, S: 436.59, D:   0.00, I:  18.28
+
+            REF  L-Min:    0.50, L-Max: 1856.93, L-Mean:   92.82, L-Median:   14.80, L-Var:72133.90
+            HYP  L-Min:    0.30, L-Max:  940.00, L-Mean:   82.06, L-Median:   20.00, L-Var:26795.17
+
+
+
+Segments
+###########################################################################################################
+
+
+-----------------------------------------------------------------------------------------------------------
+bbc-one-2018-03-18_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        76.75                                          music   music                                   
+76.75       77.49                                          music   other                                   
+77.49       115.25                                         other   other                                   
+115.25      115.30                                         other   music                                   
+115.30      120.25                                         music   music                                   
+120.25      160.25                                         music   other                                   
+160.25      303.90                                         music   music                                   
+303.90      309.49                                         other   music                                   
+309.49      443.86                                         music   music                                   
+443.86      455.25                                         other   music                                   
+455.25      475.25                                         other   other                                   
+475.25      485.25                                         other   music                                   
+485.25      510.25                                         other   other                                   
+510.25      515.25                                         other   music                                   
+515.25      570.25                                         other   other                                   
+570.25      579.61                                         other   music                                   
+579.61      580.25                                         music   music                                   
+580.25      605.25                                         music   other                                   
+605.25      645.25                                         music   music                                   
+645.25      650.25                                         music   other                                   
+650.25      718.31                                         music   music                                   
+718.31      722.70                                         other   music                                   
+722.70      850.82                                         music   music                                   
+850.82      855.00                                         other   music                                   
+855.00      1013.25                                        music   music                                   
+1013.25     1014.25                                        music   other                                   
+1014.25     1030.25                                        other   other                                   
+1030.25     1032.55                                        other   music                                   
+1032.55     1212.54                                        music   music                                   
+1212.54     1225.25                                        other   music                                   
+1225.25     1409.07                                        other   other                                   
+1409.07     1410.24                                        music   other                                   
+1410.24     1419.60                                        other   other                                   
+1419.60     1420.25                                        music   other                                   
+1420.25     1439.25                                        music   music                                   
+1439.25     1455.25                                        music   other                                   
+1455.25     1597.25                                        music   music                                   
+1597.25     1597.51                                        music   other                                   
+1597.51     1609.40                                        other   other                                   
+1609.40     1611.86                                        music   other                                   
+1611.86     1615.25                                        other   other                                   
+1615.25     1615.71                                        music   music                                   
+1615.71     1618.69                                        other   music                                   
+1618.69     1792.26                                        music   music                                   
+1792.26     1793.25                                        other   music                                   
+1793.25     1793.75                                        other   other                                   
+1793.75     1795.25                                        other   music                                   
+1795.25     1801.25                                        other   other                                   
+1801.25     1801.55                                        other   other                                   
+
+-----------------------------------------------------------------------------------------------------------
+capital-fm-2018-03-23_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        95.25                                          music   music                                   
+95.25       105.25                                         music   other                                   
+105.25      275.98                                         music   music                                   
+275.98      280.25                                         other   music                                   
+280.25      290.25                                         other   other                                   
+290.25      291.45                                         other   music                                   
+291.45      473.62                                         music   music                                   
+473.62      476.55                                         other   music                                   
+476.55      635.60                                         music   music                                   
+635.60      740.25                                         other   music                                   
+740.25      815.25                                         other   other                                   
+815.25      830.25                                         other   music                                   
+830.25      850.25                                         other   other                                   
+850.25      859.75                                         other   music                                   
+859.75      860.25                                         other   other                                   
+860.25      890.25                                         other   music                                   
+890.25      925.25                                         other   other                                   
+925.25      951.81                                         other   music                                   
+951.81      955.25                                         music   music                                   
+955.25      970.25                                         music   other                                   
+970.25      1154.30                                        music   music                                   
+1154.30     1156.38                                        other   music                                   
+1156.38     1377.65                                        music   music                                   
+1377.65     1383.43                                        other   music                                   
+1383.43     1587.42                                        music   music                                   
+1587.42     1591.69                                        other   music                                   
+1591.69     1761.75                                        music   music                                   
+1761.75     1764.75                                        other   music                                   
+1764.75     1765.21                                        other   music                                   
+1765.21     1907.33                                        music                                           
+
+-----------------------------------------------------------------------------------------------------------
+srf2_2017_08_12_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        197.06                                         music   music                                   
+197.06      200.25                                                 music                                   
+200.25      201.65                                                 other                                   
+201.65      214.16                                         other   other                                   
+214.16      216.25                                                 other                                   
+216.25      230.25                                         other   other                                   
+230.25      231.68                                         other   music                                   
+231.68      231.75                                                 music                                   
+231.75      232.51                                                 other                                   
+232.51      232.75                                         music   other                                   
+232.75      565.12                                         music   music                                   
+565.12      565.25                                                 music                                   
+565.25      570.12                                                 other                                   
+570.12      585.56                                         other   other                                   
+585.56      587.64                                                 other                                   
+587.64      589.25                                         music   other                                   
+589.25      951.75                                         music   music                                   
+951.75      952.15                                         music   other                                   
+952.15      971.13                                         other   other                                   
+971.13      972.38                                                 other                                   
+972.38      987.40                                         other   other                                   
+987.40      987.75                                                 other                                   
+987.75      988.44                                                 music                                   
+988.44      1499.96                                        music   music                                   
+1499.96     1500.25                                                music                                   
+1500.25     1502.47                                                other                                   
+1502.47     1517.06                                        other   other                                   
+1517.06     1519.15                                                other                                   
+1519.15     1519.25                                        music   other                                   
+1519.25     1699.53                                        music   music                                   
+1699.53     1715.25                                        other   music                                   
+1715.25     2090.25                                        other   other                                   
+2090.25     2095.11                                        other   music                                   
+2095.11     2095.25                                                music                                   
+2095.25     2096.36                                                other                                   
+2096.36     2110.25                                        music   other                                   
+2110.25     2180.25                                        music   music                                   
+2180.25     2210.25                                        music   other                                   
+2210.25     2230.25                                        music   music                                   
+2230.25     2235.25                                        music   other                                   
+2235.25     2240.25                                        music   music                                   
+2240.25     2240.75                                        music   other                                   
+2240.75     2455.25                                        music   music                                   
+2455.25     2462.75                                        music   other                                   
+2462.75     2463.38                                        music   other                                   
+
+-----------------------------------------------------------------------------------------------------------
+srf3-2017-08-12_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        9.84                                           music   other                                   
+9.84        14.84                                          other   other                                   
+14.84       16.84                                          music   other                                   
+16.84       294.84                                         other   other                                   
+294.84      309.84                                         music   other                                   
+309.84      364.84                                         other   other                                   
+364.84      384.84                                         music   other                                   
+384.84      394.84                                         other   other                                   
+394.84      401.25                                         music   other                                   
+401.25      585.25                                         music   music                                   
+585.25      594.84                                         music   other                                   
+594.84      629.84                                         other   other                                   
+629.84      649.84                                         music   other                                   
+649.84      654.84                                         other   other                                   
+654.84      659.84                                         music   other                                   
+659.84      664.84                                         other   other                                   
+664.84      669.84                                         music   other                                   
+669.84      672.84                                         other   other                                   
+672.84      673.84                                         music   other                                   
+673.84      674.34                                         other   other                                   
+674.34      679.34                                         music   other                                   
+679.34      709.84                                         other   other                                   
+709.84      715.25                                         music   other                                   
+715.25      729.84                                         music   music                                   
+729.84      739.84                                         other   music                                   
+739.84      895.25                                         music   music                                   
+895.25      904.84                                         music   other                                   
+904.84      919.84                                         other   other                                   
+919.84      920.25                                         music   other                                   
+920.25      949.84                                         music   music                                   
+949.84      950.75                                         other   music                                   
+950.75      954.25                                         other   other                                   
+954.25      955.25                                         other   music                                   
+955.25      959.84                                         other   other                                   
+959.84      960.25                                         music   other                                   
+960.25      1080.25                                        music   music                                   
+1080.25     1115.25                                        music   other                                   
+1115.25     1295.25                                        music   music                                   
+1295.25     1299.25                                        music   other                                   
+1299.25     1300.25                                        music   music                                   
+1300.25     1303.25                                        music   other                                   
+1303.25     1314.84                                        music   music                                   
+1314.84     1315.25                                        other   music                                   
+1315.25     1464.84                                        other   other                                   
+1464.84     1468.25                                        music   other                                   
+1468.25     1469.25                                        music   music                                   
+1469.25     1470.25                                        music   other                                   
+1470.25     1610.25                                        music   music                                   
+1610.25     1612.34                                        music   other                                   
+1612.34     1614.84                                        other   other                                   
+1614.84     1620.25                                        music   other                                   
+1620.25     1870.25                                        music   music                                   
+1870.25     1879.84                                        music   other                                   
+1879.84     1909.84                                        other   other                                   
+1909.84     1914.84                                        music   other                                   
+1914.84     2071.75                                        other   other                                   
+2071.75     2072.46                                        other   other                                   
+
+-----------------------------------------------------------------------------------------------------------
+srf3-2017-10-21_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        355.25                                         music   music                                   
+355.25      358.96                                         music   other                                   
+358.96      515.19                                         other   other                                   
+515.19      518.75                                         music   other                                   
+518.75      530.25                                         music   music                                   
+530.25      535.25                                         music   other                                   
+535.25      732.75                                         music   music                                   
+732.75      736.15                                         other   music                                   
+736.15      953.85                                         music   music                                   
+953.85      955.25                                         other   music                                   
+955.25      984.57                                         other   other                                   
+984.57      984.62                                                 other                                   
+984.62      1190.25                                        other   other                                   
+1190.25     1192.84                                        other   music                                   
+1192.84     1420.99                                        music   music                                   
+1420.99     1430.25                                        other   music                                   
+1430.25     1450.25                                        other   other                                   
+1450.25     1462.51                                        other   music                                   
+1462.51     1639.68                                        music   music                                   
+1639.68     1645.25                                        other   music                                   
+1645.25     1870.25                                        other   other                                   
+1870.25     1875.25                                        other   music                                   
+1875.25     1895.25                                        other   other                                   
+1895.25     1904.38                                        other   music                                   
+1904.38     2131.25                                        music   music                                   
+2131.25     2131.67                                        music   music                                   
+
+-----------------------------------------------------------------------------------------------------------
+srf4_2017_08_12_1
+-----------------------------------------------------------------------------------------------------------
+start       end                                              REF   HYP                                     
+-----------------------------------------------------------------------------------------------------------
+0.00        597.75                                         other   other                                   
+597.75      660.25                                         other   music                                   
+660.25      905.25                                         other   other                                   
+905.25      916.25                                         other   music                                   
+916.25      1856.25                                        other   other                                   
+1856.25     1856.93                                        other   other                                   

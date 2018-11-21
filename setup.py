@@ -20,7 +20,7 @@ setup(name='evalmate',
       license='MIT',
       packages=find_packages(exclude=['tests']),
       install_requires=[
-          'audiomate >= 1.0.0',
+          'audiomate == 3.0.0',
           'numpy >= 1.14.0',
           'scipy >= 1.1.0',
           'networkx >= 2.0',
@@ -38,7 +38,7 @@ setup(name='evalmate',
               'Sphinx==1.6.5',
               'sphinx-rtd-theme==0.2.5b1'
           ],
-          'ci': ['flake8==3.5.0', 'flake8-quotes==0.12.1'],
+          'ci': ['flake8==3.6.0', 'flake8-quotes==0.12.1'],
       },
       setup_requires=['pytest-runner'],
       tests_require=[
