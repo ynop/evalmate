@@ -1,7 +1,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-PYTEST_VERSION_ = '3.3.0'
+PYTEST_VERSION_ = '4.0.0'
 
 setup(name='evalmate',
       version='0.2.0',
