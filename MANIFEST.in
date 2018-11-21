@@ -1,2 +1,2 @@
 recursive-include evalmate/evaluator/report_templates *.txt
-include LICENSE
+include LICENSE README.md
