@@ -7,8 +7,9 @@
 
 Evalmate is a set of tools for evaluating audio related machine learning tasks.
 
-Documentation: https://evalmate.readthedocs.io/  
-Examples: https://github.com/ynop/evalmate/tree/master/examples
+[Documentation](https://evalmate.readthedocs.io/)  
+[Examples](https://github.com/ynop/evalmate/tree/master/examples)  
+[Changelog](https://evalmate.readthedocs.io/en/latest/notes/changelog.html)  
 
 ## Installation
 
