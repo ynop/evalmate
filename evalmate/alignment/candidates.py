@@ -35,11 +35,14 @@ class StartEndCandidateFinder(CandidateFinder):
 
     Args:
         start_delta_threshold (float): Temporal tolerance of the start
-        time in seconds. If the delta between the starts of the two labels is
-        greater it is not a matching pair.
+                                       time in seconds. If the delta between
+                                       the starts of the two labels is
+                                       greater it is not a matching pair.
         end_delta_threshold (float): Temporal tolerance of the end time in
-        seconds. If the delta between the ends of the two labels is greater
-        it is not a matching pair. If < 0 the end time is not checked at all.
+                                     seconds. If the delta between the ends of
+                                     the two labels is greater it is not a
+                                     matching pair. If < 0 the end time is
+                                     not checked at all.
 
     """
 
@@ -79,7 +82,8 @@ class OverlapCandidateFinder(CandidateFinder):
 
     Args:
         min_overlap (float): Number of seconds the segment of overlap has to
-        be, to include the combination of labels. (default 0.05 seconds)
+                             be, to include the combination of labels.
+                             (default 0.05 seconds)
     """
 
     def __init__(self, min_overlap=0.05):
