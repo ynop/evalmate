@@ -41,6 +41,19 @@ Align labels based on segments defined by start/end-time.
 .. autoclass:: InvariantSegmentAligner
    :members:
 
+Candidates
+----------
+Classes to find possible pairs of labels for alignment.
+
+.. autoclass:: CandidateFinder
+   :members:
+
+.. autoclass:: StartEndCandidateFinder
+   :members:
+
+.. autoclass:: OverlapCandidateFinder
+   :members:
+
 Utils
 -----
 
@@ -53,6 +66,10 @@ Utils
 
 from .aligner import EventAligner  # noqa: F401
 from .aligner import SegmentAligner  # noqa: F401
+
+from .candidates import CandidateFinder  # noqa: F401
+from .candidates import StartEndCandidateFinder  # noqa: F401
+from .candidates import OverlapCandidateFinder  # noqa: F401
 
 from .time import BipartiteMatchingAligner  # noqa: F401
 from .time import FullMatchingAligner  # noqa: F401
