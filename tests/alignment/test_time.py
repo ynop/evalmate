@@ -7,10 +7,10 @@ class TestBipartiteMatchingAligner:
     def test_align(self, kws_ref_and_hyp_label_list):
         ll_ref, ll_hyp = kws_ref_and_hyp_label_list
 
-        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
-                                                     end_delta_threshold=-1,
-                                                     substitution_penalty=2,
-                                                     non_overlap_penalty_weight=1)
+        aligner = alignment.BipartiteMatchingAligner(
+            substitution_penalty=2,
+            non_overlap_penalty_weight=1
+        )
 
         matches = aligner.align(ll_ref, ll_hyp)
 
@@ -38,10 +38,10 @@ class TestBipartiteMatchingAligner:
         ll_hyp = annotations.LabelList(labels=[
         ])
 
-        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
-                                                     end_delta_threshold=-1,
-                                                     substitution_penalty=2,
-                                                     non_overlap_penalty_weight=1)
+        aligner = alignment.BipartiteMatchingAligner(
+            substitution_penalty=2,
+            non_overlap_penalty_weight=1
+        )
 
         matches = aligner.align(ll_ref, ll_hyp)
 
@@ -55,10 +55,10 @@ class TestBipartiteMatchingAligner:
         ll_hyp = annotations.LabelList(labels=[
         ])
 
-        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
-                                                     end_delta_threshold=-1,
-                                                     substitution_penalty=2,
-                                                     non_overlap_penalty_weight=1)
+        aligner = alignment.BipartiteMatchingAligner(
+            substitution_penalty=2,
+            non_overlap_penalty_weight=1
+        )
 
         matches = aligner.align(ll_ref, ll_hyp)
 
@@ -74,10 +74,10 @@ class TestBipartiteMatchingAligner:
             annotations.Label('greasy', 1.4, 1.9)
         ])
 
-        aligner = alignment.BipartiteMatchingAligner(start_delta_threshold=0.5,
-                                                     end_delta_threshold=-1,
-                                                     substitution_penalty=2,
-                                                     non_overlap_penalty_weight=1)
+        aligner = alignment.BipartiteMatchingAligner(
+            substitution_penalty=2,
+            non_overlap_penalty_weight=1
+        )
 
         matches = aligner.align(ll_ref, ll_hyp)
 
@@ -131,9 +131,12 @@ class TestFullMatchingAligner:
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
         assert result == [
-            alignment.LabelPair(annotations.Label('a', 4.2, 8.5), annotations.Label('x', 3.2, 5.4)),
-            alignment.LabelPair(annotations.Label('a', 4.2, 8.5), annotations.Label('y', 7.6, 15.2)),
-            alignment.LabelPair(annotations.Label('b', 13.1, 19.23), annotations.Label('y', 7.6, 15.2))
+            alignment.LabelPair(annotations.Label('a', 4.2, 8.5),
+                                annotations.Label('x', 3.2, 5.4)),
+            alignment.LabelPair(annotations.Label('a', 4.2, 8.5),
+                                annotations.Label('y', 7.6, 15.2)),
+            alignment.LabelPair(annotations.Label('b', 13.1, 19.23),
+                                annotations.Label('y', 7.6, 15.2))
         ]
 
     def test_align_insertion(self):
@@ -177,6 +180,8 @@ class TestFullMatchingAligner:
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
         assert sorted(result) == sorted([
-            alignment.LabelPair(annotations.Label('a', 4.2, 8.5), None),
-            alignment.LabelPair(annotations.Label('b', 13.1, 19.23), annotations.Label('x', 9.2, -1))
+            alignment.LabelPair(annotations.Label('a', 4.2, 8.5),
+                                None),
+            alignment.LabelPair(annotations.Label('b', 13.1, 19.23),
+                                annotations.Label('x', 9.2, -1))
         ])

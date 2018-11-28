@@ -4,6 +4,12 @@ Changelog
 Next Version
 ------------
 
+**Breaking changes**
+
+* :class:`evalmate.alignment.BipartiteMatchingAligner` now expectes a
+  :class:`evalmate.alignment.CandidateFinder`.
+
+
 v0.3.0
 ------
 
