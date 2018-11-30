@@ -9,6 +9,9 @@ FAR:                {{"%8.2f"|format(evaluation.false_alarm_rate())}}
 Precision:          {{"%8.2f"|format(confusion.precision * 100)}}
 Recall:             {{"%8.2f"|format(confusion.recall * 100)}}
 
+Precision (mean):   {{"%8.2f"|format(confusion.precision_mean * 100)}}
+Recall (mean):      {{"%8.2f"|format(confusion.recall_mean * 100)}}
+
 N (total):          {{"%8.2f"|format(confusion.total)}}
 C (correct):        {{"%8.2f"|format(confusion.correct)}}
 S (substitutions):  {{"%8.2f"|format(confusion.substitutions)}}
@@ -19,6 +22,7 @@ Keywords
 ###########################################################################################################
 
 {% for i in confusion.instances.values() %}
-{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}}  Recall: {{"%2.2f"|format(i.recall * 100)}}
+{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}}  Recall: {{"%2.2f"|format(i.recall *
+100)}}  FRR: {{"%2.2f"|format(evaluation.false_rejection_rate(keyword=i.value) * 100)}}  FAR: {{"%2.2f"|format(evaluation.false_alarm_rate(keyword=i.value) * 100)}}
 {{"%-15s"|format("")}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
 {% endfor %}
