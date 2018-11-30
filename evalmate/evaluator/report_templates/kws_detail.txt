@@ -1,0 +1,14 @@
+{% include 'kws.txt' %}
+
+Confusions
+###########################################################################################################
+
+{% for name, cnf in confusion.instances.items()|sort(attribute='0') -%}
+{% if cnf.substitution_pairs.items()|length > 0 %}
+{{"%-15s"|format(name)}}
+-----------------------------------------------------------------------------------------------------------
+{% for token, num_subs in cnf.substitutions_by_count() %}
+    {{ "%20s"|format(token) }} :   {{ num_subs }}
+{%- endfor %}
+{% endif %}
+{%- endfor %}
