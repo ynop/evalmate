@@ -1,24 +1,27 @@
 Overall
 ###########################################################################################################
 
-TWV:                {{"%8.2f"|format(evaluation.term_weighted_value())}}
+TWV:                 {{"%8.3f"|format(evaluation.term_weighted_value())}}
 
-FRR:                {{"%8.2f"|format(evaluation.false_rejection_rate())}}
-FAR:                {{"%8.2f"|format(evaluation.false_alarm_rate())}}
+FRR:                 {{"%8.3f"|format(evaluation.false_rejection_rate())}}
+FAR:                 {{"%8.3f"|format(evaluation.false_alarm_rate())}}
 
-Precision:          {{"%8.2f"|format(confusion.precision * 100)}}
-Recall:             {{"%8.2f"|format(confusion.recall * 100)}}
+Precision:           {{"%8.3f"|format(confusion.precision * 100)}} %
+Recall:              {{"%8.3f"|format(confusion.recall * 100)}} %
 
-N (total):          {{"%8.2f"|format(confusion.total)}}
-C (correct):        {{"%8.2f"|format(confusion.correct)}}
-S (substitutions):  {{"%8.2f"|format(confusion.substitutions)}}
-D (deletions):      {{"%8.2f"|format(confusion.deletions)}}
-I (insertions):     {{"%8.2f"|format(confusion.insertions)}}
+Precision (mean):    {{"%8.3f"|format(confusion.precision_mean * 100)}} %
+Recall (mean):       {{"%8.3f"|format(confusion.recall_mean * 100)}} %
+
+N (total):           {{"%8.0f"|format(confusion.total)}}
+C (correct):         {{"%8.0f"|format(confusion.correct)}}
+S (substitutions):   {{"%8.0f"|format(confusion.substitutions)}}
+D (deletions):       {{"%8.0f"|format(confusion.deletions)}}
+I (insertions):      {{"%8.0f"|format(confusion.insertions)}}
 
 Keywords
 ###########################################################################################################
 
-{% for i in confusion.instances.values() %}
-{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}}  Recall: {{"%2.2f"|format(i.recall * 100)}}
-{{"%-15s"|format("")}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
+{% for key, i in confusion.instances.items()|sort(attribute='0') %}
+{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}} %   Recall: {{"%2.2f"|format(i.recall * 100)}} %   FRR: {{"%2.3f"|format(evaluation.false_rejection_rate(keyword=i.value))}}   FAR: {{"%2.3f"|format(evaluation.false_alarm_rate(keyword=i.value))}}
+{{"%-15s"|format("")}}  N:{{"%7.0f"|format(i.total)}},  C:{{"%7.0f"|format(i.correct)}},  S:{{"%7.0f"|format(i.substitutions)}},  D:{{"%7.0f"|format(i.deletions)}},  I:{{"%7.0f"|format(i.insertions)}}
 {% endfor %}

@@ -1,3 +1,5 @@
+import numpy as np
+
 from . import confusion
 
 
@@ -31,3 +33,15 @@ class AggregatedConfusion(confusion.Confusion):
     @property
     def substitutions_out(self):
         return sum([x.substitutions_out for x in self.instances.values()])
+
+    @property
+    def precision_mean(self):
+        """ Calculate mean precision of all instances. """
+        per_instance = [conf.precision for conf in self.instances.values()]
+        return np.mean(per_instance)
+
+    @property
+    def recall_mean(self):
+        """ Calculate mean recall of all instances. """
+        per_instance = [conf.recall for conf in self.instances.values()]
+        return np.mean(per_instance)

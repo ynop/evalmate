@@ -2,7 +2,7 @@
 {% if cnf.substitution_pairs.items()|length > 0 %}
 {{"%-15s"|format(name)}}
 -----------------------------------------------------------------------------------------------------------
-{% for token, num_subs in cnf.substitutions_by_count() %}
+{% for token, num_subs in cnf.substitutions_by_count()|sort(attribute='0') %}
     {{ "%20s"|format(token) }} :   {{ num_subs }}
 {%- endfor %}
 {% endif %}

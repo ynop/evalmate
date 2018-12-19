@@ -1,3 +1,5 @@
+import numpy as np
+
 from evalmate import confusion
 
 import pytest
@@ -59,3 +61,11 @@ class TestAggregatedConfusion:
 
     def test_substitutions_out(self, sample_confusion):
         return sample_confusion.substitutions_out == pytest.approx(1.2 + 9.1 + 8.12)
+
+    def test_precision_mean(self, sample_confusion):
+        expected = np.mean([x.precision for x in sample_confusion.instances.values()])
+        assert sample_confusion.precision_mean == expected
+
+    def test_recall_mean(self, sample_confusion):
+        expected = np.mean([x.recall for x in sample_confusion.instances.values()])
+        assert sample_confusion.recall_mean == expected
