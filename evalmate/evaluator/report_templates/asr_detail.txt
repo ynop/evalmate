@@ -4,13 +4,13 @@ Tokens
 ###########################################################################################################
 
 {% for name, i in confusion.instances.items()|sort(attribute='0') %}
-{{"%-15s"|format(name)}}  N:{{"%7.2f"|format(i.total)}}, C:{{"%7.2f"|format(i.correct)}}, S:{{"%7.2f"|format(i.substitutions)}}, D:{{"%7.2f"|format(i.deletions)}}, I:{{"%7.2f"|format(i.insertions)}}
+{{"%-15s"|format(name)}}  N:{{"%10.0f"|format(i.total)}},  C:{{"%10.0f"|format(i.correct)}},  S:{{"%10.0f"|format(i.substitutions)}},  D:{{"%10.0f"|format(i.deletions)}},  I:{{"%10.0f"|format(i.insertions)}}
 {%- endfor %}
 
 Utterances
 ###########################################################################################################
 
-{% for utt_idx, pairs in utt_to_label_pairs.items() %}
+{% for utt_idx, pairs in utt_to_label_pairs.items()|sort(attribute='0') %}
 {{ utt_idx }} :
     {% for pair in pairs -%}
         {{  pair.padded_ref_value() }}{{ " " }}
