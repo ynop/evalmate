@@ -22,6 +22,6 @@ Keywords
 ###########################################################################################################
 
 {% for key, i in confusion.instances.items()|sort(attribute='0') %}
-{{"%-15s"|format(i.value)}}  Precision: {{"%2.2f"|format(i.precision * 100)}} %   Recall: {{"%2.2f"|format(i.recall * 100)}} %   FRR: {{"%2.3f"|format(evaluation.false_rejection_rate(keyword=i.value))}}   FAR: {{"%2.3f"|format(evaluation.false_alarm_rate(keyword=i.value))}}
+{{"%-15s"|format(i.value)}}  Precision: {{"%6.2f"|format(i.precision * 100)}} %   Recall: {{"%6.2f"|format(i.recall * 100)}} %   FRR: {{"%5.3f"|format(evaluation.false_rejection_rate(keyword=i.value))}}   FAR: {{"%5.3f"|format(evaluation.false_alarm_rate(keyword=i.value))}}   TWV: {{"%7.3f"|format(evaluation.term_weighted_value(keyword=i.value))}}
 {{"%-15s"|format("")}}  N:{{"%7.0f"|format(i.total)}},  C:{{"%7.0f"|format(i.correct)}},  S:{{"%7.0f"|format(i.substitutions)}},  D:{{"%7.0f"|format(i.deletions)}},  I:{{"%7.0f"|format(i.insertions)}}
 {% endfor %}
