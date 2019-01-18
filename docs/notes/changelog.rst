@@ -9,6 +9,11 @@ Next Version
 * :class:`evalmate.alignment.BipartiteMatchingAligner` now expectes a
   :class:`evalmate.alignment.CandidateFinder`.
 
+**New Features**
+
+* :meth:`evalmate.evaluator.Evaluation.write_report` and :meth:`evalmate.evaluater.Evaluation.get_report`
+  have an argument to pass parameters to templates.
+
 
 v0.3.0
 ------
