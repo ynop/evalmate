@@ -22,6 +22,17 @@ Keywords
 ###########################################################################################################
 
 {% for key, i in confusion.instances.items()|sort(attribute='0') %}
-{{"%-15s"|format(i.value)}}  Precision: {{"%6.2f"|format(i.precision * 100)}} %   Recall: {{"%6.2f"|format(i.recall * 100)}} %   FRR: {{"%5.3f"|format(evaluation.false_rejection_rate(keyword=i.value))}}   FAR: {{"%5.3f"|format(evaluation.false_alarm_rate(keyword=i.value))}}   TWV: {{"%7.3f"|format(evaluation.term_weighted_value(keyword=i.value))}}
+{{"%-15s"|format(i.value)}}  Precision: {{"%6.2f"|format(i.precision * 100)}} %   Recall: {{"%6.2f"|format(i.recall * 100)}} %   FRR: {{"%5.3f"|format(evaluation.false_rejection_rate(keywords=i.value))}}   FAR: {{"%5.3f"|format(evaluation.false_alarm_rate(keywords=i.value))}}   TWV: {{"%7.3f"|format(evaluation.term_weighted_value(keywords=i.value))}}
 {{"%-15s"|format("")}}  N:{{"%7.0f"|format(i.total)}},  C:{{"%7.0f"|format(i.correct)}},  S:{{"%7.0f"|format(i.substitutions)}},  D:{{"%7.0f"|format(i.deletions)}},  I:{{"%7.0f"|format(i.insertions)}}
 {% endfor %}
+
+{%- if 'keyword_groups' in template_param %}
+Keyword Groups
+###########################################################################################################
+
+{% for group, keywords in template_param['keyword_groups'].items()|sort(attribute='0') %}
+{% set i = confusion.get_confusion_with_instances(keywords) %}
+{{"%-15s"|format(group)}}  Precision: {{"%6.2f"|format(i.precision * 100)}} %   Recall: {{"%6.2f"|format(i.recall * 100)}} %   FRR: {{"%5.3f"|format(evaluation.false_rejection_rate(keywords=keywords))}}   FAR: {{"%5.3f"|format(evaluation.false_alarm_rate(keywords=keywords))}}   TWV: {{"%7.3f"|format(evaluation.term_weighted_value(keywords=keywords))}}
+{{"%-15s"|format("")}}  N:{{"%7.0f"|format(i.total)}},  C:{{"%7.0f"|format(i.correct)}},  S:{{"%7.0f"|format(i.substitutions)}},  D:{{"%7.0f"|format(i.deletions)}},  I:{{"%7.0f"|format(i.insertions)}}
+{% endfor %}
+{% endif %}
