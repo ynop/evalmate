@@ -35,7 +35,7 @@ class Evaluation(abc.ABC):
     def default_template(cls):
         return 'default'
 
-    def write_report(self, path, template=None):
+    def write_report(self, path, template=None, template_param=None):
         """
         Write the report to the given path.
 
@@ -45,9 +45,9 @@ class Evaluation(abc.ABC):
                             All available templates are in the ``report_templates`` folder.
         """
         with open(path, 'w') as f:
-            f.write(self.get_report(template=template))
+            f.write(self.get_report(template=template, template_param=template_param))
 
-    def get_report(self, template=None):
+    def get_report(self, template=None, template_param=None):
         """
         Generate and return a report.
 
@@ -62,7 +62,14 @@ class Evaluation(abc.ABC):
             template = self.default_template
 
         template = self._load_template(template)
-        return template.render(**self.template_data)
+        template_data = self.template_data
+
+        if template_param is not None:
+            template_data['template_param'] = template_param
+        else:
+            template_data['template_param'] = {}
+
+        return template.render(**template_data)
 
     def _load_template(self, name):
         return env.get_template('{}.txt'.format(name))
