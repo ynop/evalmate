@@ -69,3 +69,12 @@ class TestAggregatedConfusion:
     def test_recall_mean(self, sample_confusion):
         expected = np.mean([x.recall for x in sample_confusion.instances.values()])
         assert sample_confusion.recall_mean == expected
+
+    def test_get_confusion_with_instances(self, sample_confusion):
+        sub_conf = sample_confusion.get_confusion_with_instances(
+            ['a', 'b']
+        )
+
+        assert len(sub_conf.instances) == 2
+        assert 'a' in sub_conf.instances.keys()
+        assert 'b' in sub_conf.instances.keys()
