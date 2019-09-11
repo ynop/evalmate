@@ -97,7 +97,7 @@ class TestKWSEvaluation:
             annotations.LabelList(labels=[
             ]),
             annotations.LabelList(labels=[
-                annotations.Label('four', 2.5, 1.0)
+                annotations.Label('four', 2.5, 3.0)
             ])
         )
 

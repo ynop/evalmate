@@ -47,21 +47,3 @@ class TestSegmentEvaluator:
         assert result.confusion.substitutions == pytest.approx(36.4)
         assert result.confusion.substitutions_out == pytest.approx(36.4)
         assert result.confusion.total == pytest.approx(169.6)
-
-    def test_evaluate_with_invalid_labels_raises_error(self):
-        ll_ref = annotations.LabelList(labels=[
-            annotations.Label('a', 0.89, 13.73),
-            annotations.Label('a', 13.73, 17.49),
-            annotations.Label('b', 17.49, 22.75)
-        ])
-
-        ll_hyp = annotations.LabelList(labels=[
-            annotations.Label('b', 0.89, 13.73),
-            annotations.Label('b', 13.73, 17.49),
-            annotations.Label('a', 17.49, 17.30)
-        ])
-
-        with pytest.raises(ValueError) as excinfo:
-            evaluator.SegmentEvaluator().evaluate(ll_ref, ll_hyp)
-
-        assert 'Label-end {} is smaller than label-start {}!'.format(17.30, 17.49) in str(excinfo.value)

@@ -84,4 +84,4 @@ class ASREvaluator(event.EventEvaluator):
             else:
                 raise ValueError('Labels overlap, not able to define the correct order')
 
-        return annotations.LabelList(labels=[annotations.Label(t) for t in tokens])
+        return [annotations.Label(t) for t in tokens]

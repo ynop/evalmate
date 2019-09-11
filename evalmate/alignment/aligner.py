@@ -11,13 +11,13 @@ class EventAligner(abc.ABC):
     """
 
     @abc.abstractmethod
-    def align(self, ref, hyp):
+    def align(self, ref_labels, hyp_labels):
         """
         Return an alignment between the labels of the two label-lists.
 
         Args:
-            ref (audiomate.corpus.assets.LabelList): The label-list containing labels of the ground truth.
-            hyp (audiomate.corpus.assets.LabelList): The label-list containing labels of the system output.
+            ref_labels (list): The list containing labels of the ground truth.
+            hyp_labels (list): The list containing labels of the system output.
 
         Returns:
             list: A list of :class:`evalmate.alignment.LabelPair`. Every pair contains one label from
@@ -35,13 +35,13 @@ class SegmentAligner(abc.ABC):
     """
 
     @abc.abstractmethod
-    def align(self, ref, hyp):
+    def align(self, ref_labels, hyp_labels):
         """
         Return an alignment of segments.
 
         Args:
-            ref (audiomate.corpus.assets.LabelList): The label-list containing labels of the ground truth.
-            hyp (audiomate.corpus.assets.LabelList): The label-list containing labels of the system output.
+            ref_labels (list): The list containing labels of the ground truth.
+            hyp_labels (list): The list containing labels of the system output.
 
         Returns:
             list: A list of :class:`evalmate.utils.structure.Segment`. Every segment has start/end-time and

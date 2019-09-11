@@ -12,7 +12,7 @@ class TestBipartiteMatchingAligner:
             non_overlap_penalty_weight=1
         )
 
-        matches = aligner.align(ll_ref, ll_hyp)
+        matches = aligner.align(ll_ref.labels, ll_hyp.labels)
 
         expected_matches = [
             alignment.LabelPair(annotations.Label('up', start=5.28, end=5.99),
@@ -32,11 +32,9 @@ class TestBipartiteMatchingAligner:
         assert sorted(expected_matches) == sorted(matches)
 
     def test_align_empty_hyp_and_ref_returns_empty_list(self):
-        ll_ref = annotations.LabelList(labels=[
-        ])
+        ll_ref = []
 
-        ll_hyp = annotations.LabelList(labels=[
-        ])
+        ll_hyp = []
 
         aligner = alignment.BipartiteMatchingAligner(
             substitution_penalty=2,
@@ -48,12 +46,9 @@ class TestBipartiteMatchingAligner:
         assert matches == []
 
     def test_align_empty_hyp_returns_deletions(self):
-        ll_ref = annotations.LabelList(labels=[
-            annotations.Label('greasy', 1.4, 1.9)
-        ])
+        ll_ref = [annotations.Label('greasy', 1.4, 1.9)]
 
-        ll_hyp = annotations.LabelList(labels=[
-        ])
+        ll_hyp = []
 
         aligner = alignment.BipartiteMatchingAligner(
             substitution_penalty=2,
@@ -67,12 +62,9 @@ class TestBipartiteMatchingAligner:
         ]
 
     def test_align_empty_ref_returns_insertions(self):
-        ll_ref = annotations.LabelList(labels=[
-        ])
+        ll_ref = []
 
-        ll_hyp = annotations.LabelList(labels=[
-            annotations.Label('greasy', 1.4, 1.9)
-        ])
+        ll_hyp = [annotations.Label('greasy', 1.4, 1.9)]
 
         aligner = alignment.BipartiteMatchingAligner(
             substitution_penalty=2,
@@ -86,7 +78,7 @@ class TestBipartiteMatchingAligner:
         ]
 
     def test_align_unbalanced(self):
-        ll_ref = annotations.LabelList(labels=[
+        ll_ref = [
             annotations.Label('Postauto', 24.195341, 24.698972),
             annotations.Label('Postauto', 197.02371, 197.57205),
             annotations.Label('Postauto', 212.287814, 212.807224),
@@ -102,12 +94,12 @@ class TestBipartiteMatchingAligner:
             annotations.Label('Postauto', 343.373961, 343.893371),
             annotations.Label('Postauto', 355.208638, 355.720159),
             annotations.Label('Postauto', 367.627159, 368.142625)
-        ])
+        ]
 
-        ll_hyp = annotations.LabelList(labels=[
+        ll_hyp = [
             annotations.Label('Postauto', 197.0, 197.5),
             annotations.Label('Billag', 1070.5, 1071.0)
-        ])
+        ]
 
         aligner = alignment.BipartiteMatchingAligner()
         matches = aligner.align(ll_ref, ll_hyp)
@@ -118,15 +110,15 @@ class TestBipartiteMatchingAligner:
 class TestFullMatchingAligner:
 
     def test_align(self):
-        ref_ll = annotations.LabelList(labels=[
+        ref_ll = [
             annotations.Label('a', 4.2, 8.5),
             annotations.Label('b', 13.1, 19.23)
-        ])
+        ]
 
-        hyp_ll = annotations.LabelList(labels=[
+        hyp_ll = [
             annotations.Label('x', 3.2, 5.4),
             annotations.Label('y', 7.6, 15.2)
-        ])
+        ]
 
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
@@ -140,12 +132,9 @@ class TestFullMatchingAligner:
         ]
 
     def test_align_insertion(self):
-        ref_ll = annotations.LabelList(labels=[
-        ])
+        ref_ll = []
 
-        hyp_ll = annotations.LabelList(labels=[
-            annotations.Label('y', 7.6, 15.2)
-        ])
+        hyp_ll = [annotations.Label('y', 7.6, 15.2)]
 
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
@@ -154,12 +143,9 @@ class TestFullMatchingAligner:
         ]
 
     def test_align_deletion(self):
-        ref_ll = annotations.LabelList(labels=[
-            annotations.Label('a', 4.2, 8.5)
-        ])
+        ref_ll = [annotations.Label('a', 4.2, 8.5)]
 
-        hyp_ll = annotations.LabelList(labels=[
-        ])
+        hyp_ll = []
 
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
@@ -168,14 +154,14 @@ class TestFullMatchingAligner:
         ]
 
     def test_align_endless_labels(self):
-        ref_ll = annotations.LabelList(labels=[
+        ref_ll = [
             annotations.Label('a', 4.2, 8.5),
             annotations.Label('b', 13.1, 19.23)
-        ])
+        ]
 
-        hyp_ll = annotations.LabelList(labels=[
-            annotations.Label('x', 9.2, -1)
-        ])
+        hyp_ll = [
+            annotations.Label('x', 9.2, float('inf'))
+        ]
 
         result = alignment.FullMatchingAligner(0.1).align(ref_ll, hyp_ll)
 
@@ -183,5 +169,5 @@ class TestFullMatchingAligner:
             alignment.LabelPair(annotations.Label('a', 4.2, 8.5),
                                 None),
             alignment.LabelPair(annotations.Label('b', 13.1, 19.23),
-                                annotations.Label('x', 9.2, -1))
+                                annotations.Label('x', 9.2, float('inf')))
         ])

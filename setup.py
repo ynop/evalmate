@@ -11,11 +11,11 @@ PYTEST_VERSION_ = '4.0.0'
 
 # Packages required in 'production'
 REQUIRED = [
-    'audiomate == 3.0.0',
-    'numpy >= 1.14.0',
-    'scipy >= 1.1.0',
-    'networkx >= 2.0',
-    'Jinja2 >= 2.1'
+    'audiomate == 4.0.1',
+    'numpy == 1.16.2',
+    'scipy == 1.2.1',
+    'networkx == 2.2',
+    'Jinja2 == 2.10.1'
 ]
 
 # Packages required for dev/ci enrionment

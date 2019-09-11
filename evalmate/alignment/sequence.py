@@ -25,13 +25,13 @@ class LevenshteinAligner(aligner.EventAligner):
         self.substitution_cost = substitution_cost
         self.custom_substitution_cost_function = custom_substitution_cost_function
 
-    def align(self, reference, hypothesis):
+    def align(self, ref_labels, hyp_labels):
         """
         Return an alignment between the labels of the given label-lists.
 
         Args:
-            reference (audiomate.corpus.assets.LabelList): The label-list containing labels of the ground truth.
-            hypothesis (audiomate.corpus.assets.LabelList): The label-list containing labels of the system output.
+            ref_labels (list): The list containing labels of the ground truth.
+            hyp_labels (list): The list containing labels of the system output.
 
         Returns:
             list: A list of :class:`evalmate.alignment.LabelPair`. Every pair contains one label from
@@ -41,15 +41,15 @@ class LevenshteinAligner(aligner.EventAligner):
 
             >>> from audiomate.corpus import assets
             >>>
-            >>> reference = assets.LabelList(labels=[
+            >>> reference = [
             >>>     assets.Label('a'),
             >>>     assets.Label('b'),
             >>>     assets.Label('c')
-            >>> ])
-            >>> hypothesis = assets.LabelList(labels=([
+            >>> ]
+            >>> hypothesis = [
             >>>     assets.Label('a'),
             >>>     assets.Label('c')
-            >>> ])
+            >>> ]
             >>>
             >>> LevenshteinAligner().align(reference, hypothesis)
             [
@@ -58,32 +58,32 @@ class LevenshteinAligner(aligner.EventAligner):
                 LabelPair(Label('c'), Label('c'))
             ]
         """
-        dist_mat = self._calc_distance_matrix(reference, hypothesis)
+        dist_mat = self._calc_distance_matrix(ref_labels, hyp_labels)
 
-        n_ref = len(reference) + 1
-        n_hyp = len(hypothesis) + 1
+        n_ref = len(ref_labels) + 1
+        n_hyp = len(hyp_labels) + 1
 
         aligned_pairs = []
 
         i = n_ref - 1
         j = n_hyp - 1
 
-        ref_index = len(reference) - 1
-        hyp_index = len(hypothesis) - 1
+        ref_index = len(ref_labels) - 1
+        hyp_index = len(hyp_labels) - 1
 
         while i > 0 or j > 0:
             if j > 0 and dist_mat[i, j - 1] + self.insertion_cost == dist_mat[i, j]:
-                pair = utils.LabelPair(None, hypothesis[hyp_index])
+                pair = utils.LabelPair(None, hyp_labels[hyp_index])
                 aligned_pairs.insert(0, pair)
                 hyp_index -= 1
                 j -= 1
             elif i > 0 and dist_mat[i - 1, j] + self.deletion_cost == dist_mat[i, j]:
-                pair = utils.LabelPair(reference[ref_index], None)
+                pair = utils.LabelPair(ref_labels[ref_index], None)
                 aligned_pairs.insert(0, pair)
                 ref_index -= 1
                 i -= 1
             else:
-                pair = utils.LabelPair(reference[ref_index], hypothesis[hyp_index])
+                pair = utils.LabelPair(ref_labels[ref_index], hyp_labels[hyp_index])
                 aligned_pairs.insert(0, pair)
                 ref_index -= 1
                 hyp_index -= 1
@@ -92,15 +92,15 @@ class LevenshteinAligner(aligner.EventAligner):
 
         return aligned_pairs
 
-    def calculate_edit_distance(self, reference, hypothesis):
-        dist_mat = self._calc_distance_matrix(reference, hypothesis)
+    def calculate_edit_distance(self, ref_labels, hyp_labels):
+        dist_mat = self._calc_distance_matrix(ref_labels, hyp_labels)
 
-        return dist_mat[len(reference), len(hypothesis)]
+        return dist_mat[len(ref_labels), len(hyp_labels)]
 
-    def _calc_distance_matrix(self, reference, hypothesis):
+    def _calc_distance_matrix(self, ref_labels, hyp_labels):
         """ Calculate the distance matrix between two sequences. """
-        n_ref = len(reference) + 1
-        n_hyp = len(hypothesis) + 1
+        n_ref = len(ref_labels) + 1
+        n_hyp = len(hyp_labels) + 1
 
         mat = np.zeros((n_ref, n_hyp), dtype=np.int16)
 
@@ -112,7 +112,7 @@ class LevenshteinAligner(aligner.EventAligner):
 
         for i in range(1, n_ref):
             for j in range(1, n_hyp):
-                sub_cost = self._get_substitution_cost(reference[i - 1], hypothesis[j - 1])
+                sub_cost = self._get_substitution_cost(ref_labels[i - 1], hyp_labels[j - 1])
 
                 ops = [
                     mat[i - 1, j - 1] + sub_cost,  # correct / substitution

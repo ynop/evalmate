@@ -75,6 +75,6 @@ class EventEvaluator(evaluator.Evaluator):
         for utterance_idx, ll_ref in ref.label_lists.items():
             ll_hyp = hyp.label_lists[utterance_idx]
 
-            utt_to_label_pairs[utterance_idx] = self.aligner.align(ll_ref, ll_hyp)
+            utt_to_label_pairs[utterance_idx] = self.aligner.align(ll_ref.labels, ll_hyp.labels)
 
         return utt_to_label_pairs
