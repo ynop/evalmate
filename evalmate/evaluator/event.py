@@ -49,6 +49,37 @@ class EventEvaluation(evaluator.Evaluation):
 
         return lp
 
+    @property
+    def failing_utterances(self):
+        """
+        Return list of utterance-ids that are not correct.
+        """
+
+        utt_ids = []
+
+        for utt_idx, pairs in self.utt_to_label_pairs.items():
+            is_ok = True
+
+            for pair in pairs:
+                if pair.ref is None or pair.hyp is None:
+                    is_ok = False
+                elif pair.ref.value != pair.hyp.value:
+                    is_ok = False
+
+            if not is_ok:
+                utt_ids.append(utt_idx)
+
+        return utt_ids
+
+    @property
+    def correct_utterances(self):
+        """
+        Return list of utterance-ids that are correct.
+        """
+        failing = self.failing_utterances
+        correct = set(self.utt_to_label_pairs.keys()) - set(failing)
+        return list(correct)
+
 
 class EventEvaluator(evaluator.Evaluator):
     """
