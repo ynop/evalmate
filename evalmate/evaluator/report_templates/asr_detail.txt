@@ -7,10 +7,29 @@ Tokens
 {{"%-15s"|format(name)}}  N:{{"%10.0f"|format(i.total)}},  C:{{"%10.0f"|format(i.correct)}},  S:{{"%10.0f"|format(i.substitutions)}},  D:{{"%10.0f"|format(i.deletions)}},  I:{{"%10.0f"|format(i.insertions)}}
 {%- endfor %}
 
-Utterances
+Failing Utterances
 ###########################################################################################################
 
-{% for utt_idx, pairs in utt_to_label_pairs.items()|sort(attribute='0') %}
+{% for utt_idx in evaluation.failing_utterances|sort %}
+{%
+    set pairs=utt_to_label_pairs[utt_idx]
+-%}
+{{ utt_idx }} :
+    {% for pair in pairs -%}
+        {{  pair.padded_ref_value() }}{{ " " }}
+    {%- endfor %}
+    {% for pair in pairs -%}
+        {{  pair.padded_hyp_value() }}{{ " " }}
+    {%- endfor %}
+{% endfor %}
+
+Correct Utterances
+###########################################################################################################
+
+{% for utt_idx in evaluation.correct_utterances|sort %}
+{%
+    set pairs=utt_to_label_pairs[utt_idx]
+-%}
 {{ utt_idx }} :
     {% for pair in pairs -%}
         {{  pair.padded_ref_value() }}{{ " " }}
