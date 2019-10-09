@@ -29,19 +29,29 @@ class KWSEvaluation(event.EventEvaluation):
         """
         return self.ref_outcome.all_values
 
-    def false_rejection_rate(self, keyword=None):
+    def false_rejection_rate(self, keywords=None):
         """
         The False Rejection Rate (FRR) is the percentage of misses of all occurrences in the ground truth.
         If no keyword is given the mean FRR is calculated over all keywords.
 
         Args:
-            keyword (str): If not None, only the FFR for this keyword is returned.
+            keywords (list): Only the FRR for the given keywords is returned.
+                             If None or the list is empty it all keywords are considered.
 
         Returns:
             float: A rate between 0 and 1
         """
 
-        if keyword is not None:
+        if keywords is None:
+            keywords = []
+        elif not isinstance(keywords, list):
+            keywords = [keywords]
+
+        if len(keywords) == 0:
+            keywords = list(self.confusion.instances.keys())
+
+        if len(keywords) == 1:
+            keyword = keywords[0]
             conf = self.confusion.instances[keyword]
 
             if conf.total <= 0:
@@ -49,10 +59,10 @@ class KWSEvaluation(event.EventEvaluation):
 
             return conf.false_negatives / conf.total
         else:
-            per_kw = [self.false_rejection_rate(kw) for kw in self.confusion.instances.keys()]
+            per_kw = [self.false_rejection_rate(kw) for kw in keywords]
             return np.mean(per_kw)
 
-    def false_alarm_rate(self, keyword=None):
+    def false_alarm_rate(self, keywords=None):
         """
         The False Alarm Rate (FAR) is the percentage of detections, where no keyword is according to the ground truth.
         If no keyword is given the mean FAR is calculated over all keywords.
@@ -62,14 +72,23 @@ class KWSEvaluation(event.EventEvaluation):
         We assume that every keyword takes one second to approximate this value.
 
         Args:
-            keyword (str): If not None, only the FFR for this keyword is returned.
+            keywords (list): Only the FAR for the given keywords is returned.
+                             If None or the list is empty it all keywords are considered.
 
         Returns:
             float: A rate between 0 and 1
         """
-        conf = self.confusion
 
-        if keyword is not None:
+        if keywords is None:
+            keywords = []
+        elif not isinstance(keywords, list):
+            keywords = [keywords]
+
+        if len(keywords) == 0:
+            keywords = list(self.confusion.instances.keys())
+
+        if len(keywords) == 1:
+            keyword = keywords[0]
             conf = self.confusion.instances[keyword]
 
             false_positive_opportunities = self.ref_outcome.total_duration - conf.total
@@ -77,10 +96,10 @@ class KWSEvaluation(event.EventEvaluation):
 
             return false_positives / false_positive_opportunities
         else:
-            per_kw = [self.false_alarm_rate(kw) for kw in self.confusion.instances.keys()]
+            per_kw = [self.false_alarm_rate(kw) for kw in keywords]
             return np.mean(per_kw)
 
-    def term_weighted_value(self, keyword=None):
+    def term_weighted_value(self, keywords=None):
         """
         Computes the Term-Weighted Value (TWV).
 
@@ -90,14 +109,15 @@ class KWSEvaluation(event.EventEvaluation):
             <https://www.nist.gov/sites/default/files/documents/itl/iad/mig/KWS16-evalplan-v04.pdf>`_
 
         Args:
-            keyword (str): If None, computes the TWV over all keywords, otherwise only for the given keyword.
+            keywords (list): Only the TWV for the given keywords is returned.
+                             If None or the list is empty it all keywords are considered.
 
         Returns:
             float: The TWV in the range 1 to -inf
         """
 
-        p_miss = self.false_rejection_rate(keyword=keyword)
-        p_false_alarm = self.false_alarm_rate(keyword=keyword)
+        p_miss = self.false_rejection_rate(keywords=keywords)
+        p_false_alarm = self.false_alarm_rate(keywords=keywords)
 
         false_alarm_cost = 0.1
         correct_cost = 1.0

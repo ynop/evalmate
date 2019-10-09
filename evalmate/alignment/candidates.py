@@ -11,14 +11,14 @@ class CandidateFinder(abc.ABC):
     """
 
     @abc.abstractmethod
-    def find(self, ref_ll, hyp_ll):
+    def find(self, ref_labels, hyp_labels):
         """
         Return candidates as pairs of labels, as well as labels that
         have no possible counterparts.
 
         Args:
-            ref_ll (LabelList): LabelList with reference (ground truth).
-            hyp_ll (LabelList): LabelList with hypothesis (system output).
+            ref_labels (list): List with reference labels (ground truth).
+            hyp_labels (list): List with hypothesis labels (system output).
 
         Returns:
             tuple: A tuple (candidates, single-ref, single-hyp) containing
@@ -50,15 +50,14 @@ class StartEndCandidateFinder(CandidateFinder):
         self.start_delta_threshold = start_delta_threshold
         self.end_delta_threshold = end_delta_threshold
 
-    def find(self, ref_ll, hyp_ll):
+    def find(self, ref_labels, hyp_labels):
         matches = []
 
-        ref_no_match = set(range(len(ref_ll)))
-        hyp_no_match = set(range(len(hyp_ll)))
+        ref_no_match = set(range(len(ref_labels)))
+        hyp_no_match = set(range(len(hyp_labels)))
 
-        for ref_index, ref in enumerate(ref_ll):
-
-            for hyp_index, hyp in enumerate(hyp_ll):
+        for ref_index, ref in enumerate(ref_labels):
+            for hyp_index, hyp in enumerate(hyp_labels):
                 start_delta = abs(ref.start - hyp.start)
 
                 if start_delta <= self.start_delta_threshold:
@@ -89,16 +88,16 @@ class OverlapCandidateFinder(CandidateFinder):
     def __init__(self, min_overlap=0.05):
         self.min_overlap = 0.05
 
-    def find(self, ref_ll, hyp_ll):
+    def find(self, ref_labels, hyp_labels):
         matches = []
 
-        ref_no_match = set(range(len(ref_ll)))
-        hyp_no_match = set(range(len(hyp_ll)))
+        ref_no_match = set(range(len(ref_labels)))
+        hyp_no_match = set(range(len(hyp_labels)))
 
-        for ref_index, ref in enumerate(ref_ll):
-            for hyp_index, hyp in enumerate(hyp_ll):
-                ref = ref_ll[ref_index]
-                hyp = hyp_ll[hyp_index]
+        for ref_index, ref in enumerate(ref_labels):
+            for hyp_index, hyp in enumerate(hyp_labels):
+                ref = ref_labels[ref_index]
+                hyp = hyp_labels[hyp_index]
 
                 overlap_time = label.overlap_time(ref, hyp)
 

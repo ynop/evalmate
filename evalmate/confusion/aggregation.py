@@ -45,3 +45,24 @@ class AggregatedConfusion(confusion.Confusion):
         """ Calculate mean recall of all instances. """
         per_instance = [conf.recall for conf in self.instances.values()]
         return np.mean(per_instance)
+
+    def get_confusion_with_instances(self, instances):
+        """
+        Return a new AggregatedConfusion with only the given instances.
+
+        Args:
+            instances (list): A list of strings containing the keys of
+                              the instances to include in the new confusion.
+
+        Returns:
+            AggregatedConfusion: A confusion with only the given instances.
+        """
+        new_conf = AggregatedConfusion()
+
+        for key in instances:
+            if key in self.instances.keys():
+                new_conf.instances[key] = self.instances[key]
+            else:
+                raise ValueError('Instance with key "{}" not found!'.format(key))
+
+        return new_conf

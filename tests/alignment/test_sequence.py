@@ -4,7 +4,7 @@ from evalmate import alignment
 
 
 def ll_with_values(values):
-    ll = annotations.LabelList()
+    ll = []
 
     for value in values:
         ll.append(annotations.Label(value))

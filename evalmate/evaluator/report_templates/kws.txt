@@ -1,10 +1,18 @@
 Overall
 ###########################################################################################################
 
+{%
+    set far=evaluation.false_alarm_rate()
+-%}
+
 TWV:                 {{"%8.3f"|format(evaluation.term_weighted_value())}}
 
-FRR:                 {{"%8.3f"|format(evaluation.false_rejection_rate())}}
-FAR:                 {{"%8.3f"|format(evaluation.false_alarm_rate())}}
+FRR:                 {{"%8.4f"|format(evaluation.false_rejection_rate())}}
+{% if 0.0 < far < 0.001 -%}
+FAR:                 {{"%8.1e"|format(far)}}
+{%- else -%}
+FAR:                 {{"%8.4f"|format(far)}}
+{%- endif %}
 
 Precision:           {{"%8.3f"|format(confusion.precision * 100)}} %
 Recall:              {{"%8.3f"|format(confusion.recall * 100)}} %
@@ -21,7 +29,58 @@ I (insertions):      {{"%8.0f"|format(confusion.insertions)}}
 Keywords
 ###########################################################################################################
 
-{% for key, i in confusion.instances.items()|sort(attribute='0') %}
-{{"%-15s"|format(i.value)}}  Precision: {{"%6.2f"|format(i.precision * 100)}} %   Recall: {{"%6.2f"|format(i.recall * 100)}} %   FRR: {{"%5.3f"|format(evaluation.false_rejection_rate(keyword=i.value))}}   FAR: {{"%5.3f"|format(evaluation.false_alarm_rate(keyword=i.value))}}   TWV: {{"%7.3f"|format(evaluation.term_weighted_value(keyword=i.value))}}
-{{"%-15s"|format("")}}  N:{{"%7.0f"|format(i.total)}},  C:{{"%7.0f"|format(i.correct)}},  S:{{"%7.0f"|format(i.substitutions)}},  D:{{"%7.0f"|format(i.deletions)}},  I:{{"%7.0f"|format(i.insertions)}}
+{% for key, i in confusion.instances.items()|sort(attribute='0') -%}
+
+{%-
+    set far=evaluation.false_alarm_rate(keywords=i.value)
+-%}
+
+{{"%-20s"|format(i.value) -}}
+{{- "Precision: %6.2f %%   "|format(i.precision * 100)}}
+{{- "Recall: %6.2f %%   "|format(i.recall * 100)}}
+{{- "FRR: %5.4f   "|format(evaluation.false_rejection_rate(keywords=i.value))}}
+{%- if 0.0 < far < 0.001 -%}
+    {{- "FAR: %5.1e   "|format(far)}}
+{%- else -%}
+    {{- "FAR: %5.4f   "|format(far)}}
+{%- endif -%}
+{{- "TWV: %7.3f   "|format(evaluation.term_weighted_value(keywords=i.value))}}
+{{"%-20s"|format("")}}
+{{- "N: %-7.0f   "|format(i.total)}}
+{{- "C: %-7.0f   "|format(i.correct)}}
+{{- "S: %-7.0f   "|format(i.substitutions)}}
+{{- "D: %-7.0f   "|format(i.deletions)}}
+{{- "I: %-7.0f   "|format(i.insertions)}}
+
 {% endfor %}
+
+{%- if 'keyword_groups' in template_param %}
+Keyword Groups
+###########################################################################################################
+
+{% for group, keywords in template_param['keyword_groups'].items()|sort(attribute='0') -%}
+{% set i = confusion.get_confusion_with_instances(keywords) -%}
+
+{%-
+    set far=evaluation.false_alarm_rate(keywords=keywords)
+-%}
+
+{{"%-20s"|format(group) -}}
+{{- "Precision: %6.2f %%   "|format(i.precision * 100)}}
+{{- "Recall: %6.2f %%   "|format(i.recall * 100)}}
+{{- "FRR: %5.4f   "|format(evaluation.false_rejection_rate(keywords=keywords))}}
+{%- if 0.0 < far < 0.001 -%}
+    {{- "FAR: %5.1e   "|format(far)}}
+{%- else -%}
+    {{- "FAR: %5.4f   "|format(far)}}
+{%- endif -%}
+{{- "TWV: %7.3f   "|format(evaluation.term_weighted_value(keywords=keywords))}}
+{{"%-20s"|format("")}}
+{{- "N: %-7.0f   "|format(i.total)}}
+{{- "C: %-7.0f   "|format(i.correct)}}
+{{- "S: %-7.0f   "|format(i.substitutions)}}
+{{- "D: %-7.0f   "|format(i.deletions)}}
+{{- "I: %-7.0f   "|format(i.insertions)}}
+
+{% endfor %}
+{% endif %}

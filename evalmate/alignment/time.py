@@ -50,17 +50,13 @@ class BipartiteMatchingAligner(aligner.EventAligner):
         self.insertion_penalty = insertion_penalty
         self.deletion_penalty = deletion_penalty
 
-    def align(self, ll_ref, ll_hyp):
+    def align(self, ref_labels, hyp_labels):
         """
         Return an alignment between the events of the given label-lists.
 
         Args:
-            ref (audiomate.annotations.LabelList): The label-list containing
-                                                   labels (events) of the
-                                                   ground truth.
-            hyp (audiomate.annotations.LabelList): The label-list containing
-                                                   labels (events) of the
-                                                   system output.
+            ref_labels (list): The list containing labels of the ground truth.
+            hyp_labels (list): The list containing labels of the system output.
 
         Returns:
             list: A list of :class:`evalmate.alignment.LabelPair`.
@@ -69,31 +65,31 @@ class BipartiteMatchingAligner(aligner.EventAligner):
             One of them also can be ``None``.
         """
 
-        if len(ll_ref) == 0 and len(ll_hyp) == 0:
+        if len(ref_labels) == 0 and len(hyp_labels) == 0:
             return []
 
-        if len(ll_ref) == 0:
-            return [utils.LabelPair(None, x) for x in ll_hyp]
+        if len(ref_labels) == 0:
+            return [utils.LabelPair(None, x) for x in hyp_labels]
 
-        if len(ll_hyp) == 0:
-            return [utils.LabelPair(x, None) for x in ll_ref]
+        if len(hyp_labels) == 0:
+            return [utils.LabelPair(x, None) for x in ref_labels]
 
         close_pairs, ref_no_match, hyp_no_match = self.candidate_finder.find(
-            ll_ref, ll_hyp
+            ref_labels, hyp_labels
         )
 
         # Calculate a high penalty for invalid matches
         invalid_penalty = self.non_overlap_penalty_weight + self.insertion_penalty + self.deletion_penalty
 
         # Cost matrix: Add possible insertion/deletion rows/cols
-        size = len(ll_ref) + len(ll_hyp)
+        size = len(ref_labels) + len(hyp_labels)
         cost = np.full((size, size), invalid_penalty).astype(np.float)
-        cost[len(ll_ref):, :] = self.insertion_penalty
-        cost[:, len(ll_hyp):] = self.deletion_penalty
+        cost[len(ref_labels):, :] = self.insertion_penalty
+        cost[:, len(hyp_labels):] = self.deletion_penalty
 
         for pair in close_pairs:
-            ref = ll_ref[pair[0]]
-            hyp = ll_hyp[pair[1]]
+            ref = ref_labels[pair[0]]
+            hyp = hyp_labels[pair[1]]
             penalty = 0
 
             if ref.value != hyp.value:
@@ -111,20 +107,20 @@ class BipartiteMatchingAligner(aligner.EventAligner):
             ref_ind = row_ind[i]
             hyp_ind = col_ind[i]
 
-            if ref_ind >= len(ll_ref):
+            if ref_ind >= len(ref_labels):
                 ref_ind = -1
 
-            if hyp_ind >= len(ll_hyp):
+            if hyp_ind >= len(hyp_labels):
                 hyp_ind = -1
 
             if hyp_ind != -1 or ref_ind != -1:
                 if ref_ind >= 0:
-                    ref_label = ll_ref[ref_ind]
+                    ref_label = ref_labels[ref_ind]
                 else:
                     ref_label = None
 
                 if hyp_ind >= 0:
-                    hyp_label = ll_hyp[hyp_ind]
+                    hyp_label = hyp_labels[hyp_ind]
                 else:
                     hyp_label = None
 
@@ -149,17 +145,13 @@ class FullMatchingAligner(aligner.EventAligner):
             min_overlap=min_overlap
         )
 
-    def align(self, ref, hyp):
+    def align(self, ref_labels, hyp_labels):
         """
-        Return an alignment between the events of the given label-lists.
+        Return an alignment between the labels of the two label-lists.
 
         Args:
-            ref (audiomate.annotations.LabelList): The label-list containing
-                                                   labels (events) of the
-                                                   ground truth.
-            hyp (audiomate.annotations.LabelList): The label-list containing
-                                                   labels (events) of the
-                                                   system output.
+            ref_labels (list): The list containing labels of the ground truth.
+            hyp_labels (list): The list containing labels of the system output.
 
         Returns:
             list: A list of :class:`evalmate.alignment.LabelPair`.
@@ -168,20 +160,20 @@ class FullMatchingAligner(aligner.EventAligner):
             that are aligned. One of them also can be ``None``.
         """
 
-        close_pairs, ref_no_match, hyp_no_match = self.finder.find(ref, hyp)
+        close_pairs, ref_no_match, hyp_no_match = self.finder.find(ref_labels, hyp_labels)
 
         pairs = []
 
         for ref_index, hyp_index in close_pairs:
-            pair = utils.LabelPair(ref[ref_index], hyp[hyp_index])
+            pair = utils.LabelPair(ref_labels[ref_index], hyp_labels[hyp_index])
             pairs.append(pair)
 
         for ref_index in ref_no_match:
-            pair = utils.LabelPair(ref[ref_index], None)
+            pair = utils.LabelPair(ref_labels[ref_index], None)
             pairs.append(pair)
 
         for hyp_index in hyp_no_match:
-            pair = utils.LabelPair(None, hyp[hyp_index])
+            pair = utils.LabelPair(None, hyp_labels[hyp_index])
             pairs.append(pair)
 
         return pairs
