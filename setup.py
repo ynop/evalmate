@@ -15,7 +15,7 @@ REQUIRED = [
     'numpy == 1.16.2',
     'scipy == 1.2.1',
     'networkx == 2.2',
-    'Jinja2 == 2.10.1'
+    'Jinja2 == 2.11.3'
 ]
 
 # Packages required for dev/ci enrionment
